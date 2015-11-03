@@ -20,6 +20,22 @@ it, simply add the following line to your Podfile:
 pod "AKTransmission"
 ```
 
+Edit your Info.plist to allow insecure http loads according to your domain
+as transmission web interface isn't on https.
+```
+<dict>
+<key>NSExceptionDomains</key>
+<dict>
+<key>localhost</key>
+<dict>
+<key>NSExceptionAllowsInsecureHTTPLoads</key>
+<true/>
+</dict>
+</dict>
+</dict>
+```
+
+
 ## Author
 
 Florian Morello, arsonik@me.com

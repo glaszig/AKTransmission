@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '120E352076C5D7783216B38B'
+               BlueprintIdentifier = 'B77415F62A71E43D947293A8'
                BlueprintName = 'AKTransmission'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'AKTransmission.framework'>

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "AKTransmission"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "A Swift class to request Transmission web interface."
 
 # This description is used to generate tags and improve search results.
@@ -22,7 +22,6 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = "https://github.com/arsonik/AKTransmission"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Florian Morello" => "arsonik@me.com" }
   s.source           = { :git => "https://github.com/arsonik/AKTransmission.git", :tag => s.version.to_s }
@@ -31,9 +30,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'AKTransmission' => ['Pod/Assets/*.png']
-  }
 
   s.dependency 'Alamofire'
 end
