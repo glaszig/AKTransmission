@@ -1,0 +1,17 @@
+PODS:
+  - AKTransmission (0.1.0):
+    - Alamofire
+  - Alamofire (3.1.1)
+
+DEPENDENCIES:
+  - AKTransmission (from `../`)
+
+EXTERNAL SOURCES:
+  AKTransmission:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AKTransmission: 2ed156ebb2002e058d8ac76c155cbcd1e2acab50
+  Alamofire: 9b0a7188b961a03914a99304488bd226b0e46c0e
+
+COCOAPODS: 0.39.0

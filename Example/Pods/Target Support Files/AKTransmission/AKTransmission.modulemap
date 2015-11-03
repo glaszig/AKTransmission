@@ -1,0 +1,6 @@
+framework module AKTransmission {
+  umbrella header "AKTransmission-umbrella.h"
+
+  export *
+  module * { export * }
+}
