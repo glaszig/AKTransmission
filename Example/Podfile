@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'AKTransmission_Example', :exclusive => true do
+  pod "AKTransmission", :path => "../"
+end
+
+target 'AKTransmission_Tests', :exclusive => true do
+  pod "AKTransmission", :path => "../"
+
+  
+end
