@@ -12,6 +12,8 @@
 		1191F2171CF2320249A06BC18956902B /* Pods-AKTransmission_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC94399FD18A91F9FD7932BFB8565B3 /* Pods-AKTransmission_Tests-dummy.m */; };
 		11F7FA291E9133753FDC9F3B264068F3 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7835749D1C4FA403E4BB17A0C787EDCA /* Result.swift */; };
 		122F13EADD437915A55EC9F2D59CFC8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFCE8A3DC08536A2B19894C1FF3E86D /* Foundation.framework */; };
+		174E11B91BF0A2C200C4FDA6 /* TransmissionRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E11B81BF0A2C200C4FDA6 /* TransmissionRoute.swift */; };
+		174E11BD1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E11BC1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift */; };
 		174FE26519200F6E62E0B1C422BEDA3D /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23887509C9FF173ECBE0A470EDD527 /* Request.swift */; };
 		18C86A8EA539AD176C728A049C3D80EA /* Transmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAFE853064DF50A3D0C659DB36AD455 /* Transmission.swift */; };
 		319999498BB7DB96D37518BE5FC9FE61 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1C843C58F0C2DFE4522F24897D8CCE /* Alamofire-dummy.m */; };
@@ -88,6 +90,8 @@
 		0D0AF30B5A6520B51E5748C5A8F1644B /* Pods-AKTransmission_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-AKTransmission_Tests.modulemap"; sourceTree = "<group>"; };
 		10653C142FFDF1986227894BF0317944 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
 		10F4BCA6DEE1C4243F5D61D08AA8BB94 /* Pods-AKTransmission_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AKTransmission_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		174E11B81BF0A2C200C4FDA6 /* TransmissionRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionRoute.swift; sourceTree = "<group>"; };
+		174E11BC1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionTorrent.swift; sourceTree = "<group>"; };
 		1BD12888A6463BD43868CB07FB52CACD /* Pods-AKTransmission_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AKTransmission_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		21FA4AD1EF77337F9C8F2AD871ED371D /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		23D4D8DBF3D77B1F970DB9DF6C963A84 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
@@ -228,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				11A4DE0D9884CBB0E4D603981DFE5FB1 /* Pod */,
-				9FE4EFCB4813A5A1732B1EB99EBEA482 /* Support Files */,
 			);
 			name = AKTransmission;
 			path = ../..;
@@ -238,6 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				EBAFE853064DF50A3D0C659DB36AD455 /* Transmission.swift */,
+				174E11B81BF0A2C200C4FDA6 /* TransmissionRoute.swift */,
+				174E11BC1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
 				8961031023EC7FAC2739FB632F0A8443 /* Development Pods */,
+				9FE4EFCB4813A5A1732B1EB99EBEA482 /* Support Files */,
 				59B91F212518421F271EBA85D5530651 /* Frameworks */,
 				20C396BA1B90EEE39D4B19FE012C4F6D /* Pods */,
 				D34203169881AA778C6C25D9587BA17E /* Products */,
@@ -330,7 +336,7 @@
 				37E5209CB24F34FB363D53D05756E529 /* Info.plist */,
 			);
 			name = "Support Files";
-			path = "Example/Pods/Target Support Files/AKTransmission";
+			path = "Target Support Files/AKTransmission";
 			sourceTree = "<group>";
 		};
 		D34203169881AA778C6C25D9587BA17E /* Products */ = {
@@ -499,7 +505,7 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
@@ -575,6 +581,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				174E11BD1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift in Sources */,
+				174E11B91BF0A2C200C4FDA6 /* TransmissionRoute.swift in Sources */,
 				920639D8FA339BACDB401736AFA6B7DD /* AKTransmission-dummy.m in Sources */,
 				18C86A8EA539AD176C728A049C3D80EA /* Transmission.swift in Sources */,
 			);
@@ -759,6 +767,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BD52531EA63FFC122862D29230DD944B /* Pods-AKTransmission_Example.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -856,6 +865,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FA4D95DAEC146896BA54A2D961329861 /* Pods-AKTransmission_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -886,6 +896,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7FF63ADAFABD8C2BA859143E2FDFAC58 /* Pods-AKTransmission_Example.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -916,6 +927,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 031FF137C6F7D94A74E8E92DC8965534 /* Pods-AKTransmission_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

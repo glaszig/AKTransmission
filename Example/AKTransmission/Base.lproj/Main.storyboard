@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="AKTransmission_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +17,101 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xiH-Sk-HBL">
+                                <rect key="frame" x="240" y="28" width="121" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Download Debian"/>
+                                <connections>
+                                    <action selector="downloadAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YSf-ti-qBM"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KJb-Bf-j4a">
+                                <rect key="frame" x="0.0" y="66" width="600" height="534"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="aCell" rowHeight="84" id="PFI-o0-cZm">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="84"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PFI-o0-cZm" id="hWa-Wa-fhb">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Torrent Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnl-lQ-Pog">
+                                                    <rect key="frame" x="8" y="8" width="584" height="18"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZv-d0-73B">
+                                                    <rect key="frame" x="8" y="29" width="584" height="17"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <progressView opaque="NO" tag="4" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZT1-de-yLb">
+                                                    <rect key="frame" x="8" y="51" width="584" height="2"/>
+                                                    <animations/>
+                                                </progressView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2b-k3-BzV">
+                                                    <rect key="frame" x="8" y="58" width="584" height="15"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="EZv-d0-73B" firstAttribute="top" secondItem="wnl-lQ-Pog" secondAttribute="bottom" constant="3" id="EDL-iM-mWb"/>
+                                                <constraint firstItem="wnl-lQ-Pog" firstAttribute="leading" secondItem="hWa-Wa-fhb" secondAttribute="leadingMargin" id="F9Q-DG-CsX"/>
+                                                <constraint firstItem="ZT1-de-yLb" firstAttribute="width" secondItem="EZv-d0-73B" secondAttribute="width" id="FxR-7p-Jnc"/>
+                                                <constraint firstItem="EZv-d0-73B" firstAttribute="leading" secondItem="wnl-lQ-Pog" secondAttribute="leading" id="Jpk-FA-54S"/>
+                                                <constraint firstItem="ZT1-de-yLb" firstAttribute="top" secondItem="EZv-d0-73B" secondAttribute="bottom" constant="5" id="MEu-gs-7SJ"/>
+                                                <constraint firstItem="ZT1-de-yLb" firstAttribute="leading" secondItem="EZv-d0-73B" secondAttribute="leading" id="Ppc-sM-82W"/>
+                                                <constraint firstItem="H2b-k3-BzV" firstAttribute="leading" secondItem="ZT1-de-yLb" secondAttribute="leading" id="ULj-5v-3k7"/>
+                                                <constraint firstItem="wnl-lQ-Pog" firstAttribute="top" secondItem="hWa-Wa-fhb" secondAttribute="topMargin" id="Z9r-L1-rWg"/>
+                                                <constraint firstItem="H2b-k3-BzV" firstAttribute="top" secondItem="ZT1-de-yLb" secondAttribute="bottom" constant="5" id="aWq-Iu-iTF"/>
+                                                <constraint firstItem="wnl-lQ-Pog" firstAttribute="centerY" secondItem="hWa-Wa-fhb" secondAttribute="centerY" id="fXO-Ig-EcY"/>
+                                                <constraint firstItem="wnl-lQ-Pog" firstAttribute="centerX" secondItem="hWa-Wa-fhb" secondAttribute="centerX" id="hZj-FQ-0cv"/>
+                                                <constraint firstItem="H2b-k3-BzV" firstAttribute="width" secondItem="EZv-d0-73B" secondAttribute="width" id="xhz-J2-U7i"/>
+                                                <constraint firstItem="EZv-d0-73B" firstAttribute="width" secondItem="wnl-lQ-Pog" secondAttribute="width" id="yxi-V0-SqR"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="fXO-Ig-EcY"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="wWA-Ft-17y"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KJb-Bf-j4a" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="36B-a2-U2F"/>
+                            <constraint firstAttribute="trailing" secondItem="KJb-Bf-j4a" secondAttribute="trailing" id="El3-DS-oNT"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="KJb-Bf-j4a" secondAttribute="bottom" id="T8b-7u-DQj"/>
+                            <constraint firstItem="KJb-Bf-j4a" firstAttribute="top" secondItem="xiH-Sk-HBL" secondAttribute="bottom" constant="8" id="TWt-zK-bpQ"/>
+                            <constraint firstItem="xiH-Sk-HBL" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ThV-PO-wRc"/>
+                            <constraint firstItem="xiH-Sk-HBL" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="qdp-hR-pZK"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="KJb-Bf-j4a" id="xPu-wz-oH5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="837" y="200"/>
         </scene>
     </scenes>
 </document>

@@ -1,3 +1,4 @@
+
 //
 //  Transmission.swift
 //
@@ -13,48 +14,162 @@ public class Transmission {
 	private let sessionHeader:String = "X-Transmission-Session-Id"
 
 	private var sessionId:String!
-	
-    private let baseURL:NSURL!
 
 	private let username:String
 	private let password:String
     private let host:String
 	private let port:UInt
 
+	public typealias completionHandler = (AnyObject?, NSError?) -> Void
+
+
 	public init(host:String, username:String, password:String, port:UInt! = 9091){
 		self.username = username
 		self.password = password
 		self.host = host
 		self.port = port
+	}
 
-		self.baseURL = NSURL(string: "http://\(host):\(port)")
+
+	private func request(route: TransmissionRoute) -> NSMutableURLRequest {
+		let request = route.URLRequest
+		let comps = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!
+		comps.host = host
+		comps.port = port
+		request.URL = comps.URL!
+		request.setValue(sessionId, forHTTPHeaderField: sessionHeader)
+		return request
+	}
+
+
+	private enum ResponseStatus {
+		case Retry
+		case Success([String: AnyObject])
+		case Error(NSError?)
+	}
+
+	private func handleResponse(response: Response<AnyObject, NSError>) -> ResponseStatus {
+		if let sid = response.response?.allHeaderFields[self.sessionHeader] as? String where response.response?.statusCode == 409 {
+			self.sessionId = sid
+			return .Retry
+		}
+		else if let res = response.result.value as? [String: AnyObject], result = res["result"] as? String, args = res["arguments"] as? [String: AnyObject] where result == "success" {
+			// ok
+			return .Success(args)
+		}
+		else {
+			return .Error(response.result.error)
+		}
 	}
 
 	public func loadMagnetLink(magnet: String, success: ((success: Bool, error: NSError!) -> Void)) -> Request {
-		let params = [
-			"method": "torrent-add",
-			"arguments": [
-				"paused": 0,
-				"filename": magnet
-			]
-		]
-		let request = NSMutableURLRequest(URL: baseURL.URLByAppendingPathComponent("/transmission/rpc"))
-		request.HTTPMethod = Alamofire.Method.POST.rawValue
-		request.setValue(sessionId, forHTTPHeaderField: sessionHeader)
 
-		return Alamofire.request(Alamofire.ParameterEncoding.JSON.encode(request, parameters: params).0)
+		let route = TransmissionRoute.MagnetLink(magnet)
+
+		return Alamofire.request(request(route))
 			.authenticate(user: username, password: password)
 			.responseJSON { (response) -> Void in
-				if response.response?.statusCode == 409 {
-					self.sessionId = response.response?.allHeaderFields[self.sessionHeader] as? String
+				switch self.handleResponse(response) {
+				case .Retry:
 					self.loadMagnetLink(magnet, success: success)
-					return ()
+				case .Success:
+					success(success: true, error: nil)
+				case .Error(let error):
+					success(success: false, error: error)
 				}
-				else if let x = response.result.value as? [String:AnyObject] {
-					return success(success: x["result"] as? String == "success", error: nil)
+		}
+	}
+
+	public func sessionGet(completion: completionHandler) -> Request {
+		return Alamofire.request(request(TransmissionRoute.SessionGet))
+			.authenticate(user: username, password: password)
+			.responseJSON { (response) -> Void in
+				switch self.handleResponse(response) {
+				case .Retry:
+					self.sessionGet(completion)
+				case .Success(let data):
+					completion(data, nil)
+				case .Error(let error):
+					completion(nil, error)
 				}
-				// oops
-				success(success: false, error: response.result.error)
+		}
+	}
+
+	public func pauseTorrent(torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
+		var ids:[Int] = []
+		for torrent in torrents {
+			ids.append(torrent.id)
+		}
+		return Alamofire.request(request(TransmissionRoute.TorrentStop(ids)))
+			.authenticate(user: username, password: password)
+			.responseJSON { (response) -> Void in
+				switch self.handleResponse(response) {
+				case .Retry:
+					self.pauseTorrent(torrents, completion: completion)
+				case .Success:
+					completion(true, nil)
+				case .Error(let error):
+					completion(nil, error)
+				}
+		}
+	}
+
+	public func resumeTorrent(torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
+		var ids:[Int] = []
+		for torrent in torrents {
+			ids.append(torrent.id)
+		}
+		return Alamofire.request(request(TransmissionRoute.TorrentStart(ids)))
+			.authenticate(user: username, password: password)
+			.responseJSON { (response) -> Void in
+				switch self.handleResponse(response) {
+				case .Retry:
+					self.resumeTorrent(torrents, completion: completion)
+				case .Success:
+					completion(true, nil)
+				case .Error(let error):
+					completion(nil, error)
+				}
+		}
+	}
+
+	public func removeTorrent(torrents:[TransmissionTorrent], trashData: Bool, completion: completionHandler) -> Request {
+		var ids:[Int] = []
+		for torrent in torrents {
+			ids.append(torrent.id)
+		}
+		return Alamofire.request(request(TransmissionRoute.TorrentRemove(ids: ids, trashData: trashData)))
+			.authenticate(user: username, password: password)
+			.responseJSON { (response) -> Void in
+				switch self.handleResponse(response) {
+				case .Retry:
+					self.removeTorrent(torrents, trashData: trashData, completion: completion)
+				case .Success:
+					completion(true, nil)
+				case .Error(let error):
+					completion(nil, error)
+				}
+		}
+	}
+
+	public func torrentGet(completion: completionHandler) -> Request {
+		return Alamofire.request(request(TransmissionRoute.TorrentGet))
+			.authenticate(user: username, password: password)
+			.responseJSON { (response) -> Void in
+				switch self.handleResponse(response) {
+				case .Retry:
+					self.torrentGet(completion)
+				case .Success(let data):
+					if let torrents = data["torrents"] as? [[String: AnyObject]] {
+						var l: [TransmissionTorrent] = []
+						for torrent in torrents {
+							l.append(TransmissionTorrent(data: torrent))
+						}
+						completion(l, nil)
+					}
+				case .Error(let error):
+					completion(nil, error)
+				}
 		}
 	}
 }
