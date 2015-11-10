@@ -15,10 +15,10 @@ public class Transmission {
 
 	private var sessionId:String!
 
-	private let username:String
-	private let password:String
-    private let host:String
-	private let port:UInt
+	public let username:String
+	public let password:String
+    public let host:String
+	public let port:UInt
 
 	public typealias completionHandler = (AnyObject?, NSError?) -> Void
 
@@ -62,7 +62,7 @@ public class Transmission {
 		}
 	}
 
-	public func loadMagnetLink(magnet: String, success: ((success: Bool, error: NSError!) -> Void)) -> Request {
+	public func loadMagnetLink(magnet: String, success: ((success: Bool, error: NSError?) -> Void)) -> Request {
 
 		let route = TransmissionRoute.MagnetLink(magnet)
 
