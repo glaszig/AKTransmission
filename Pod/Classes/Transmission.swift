@@ -15,10 +15,11 @@ public class Transmission {
 
 	private var sessionId:String!
 
-	public let username:String
-	public let password:String
-    public let host:String
-	public let port:UInt
+	public let username: String
+	public let password: String
+    public let host: String
+	public let port: UInt
+    public var timeout: NSTimeInterval = 10
 
 	public typealias completionHandler = (AnyObject?, NSError?) -> Void
 
@@ -38,6 +39,7 @@ public class Transmission {
 		comps.port = port
 		request.URL = comps.URL!
 		request.setValue(sessionId, forHTTPHeaderField: sessionHeader)
+        request.timeoutInterval = timeout
 		return request
 	}
 
@@ -155,17 +157,19 @@ public class Transmission {
 	public func torrentGet(completion: completionHandler) -> Request {
 		return Alamofire.request(request(TransmissionRoute.TorrentGet))
 			.authenticate(user: username, password: password)
-			.responseJSON { (response) -> Void in
-				switch self.handleResponse(response) {
+			.responseJSON { [weak self] response -> Void in
+                guard let handled = self?.handleResponse(response) else {
+                    return
+                }
+				switch handled {
 				case .Retry:
-					self.torrentGet(completion)
+					self?.torrentGet(completion)
 				case .Success(let data):
 					if let torrents = data["torrents"] as? [[String: AnyObject]] {
-						var l: [TransmissionTorrent] = []
-						for torrent in torrents {
-							l.append(TransmissionTorrent(data: torrent))
-						}
-						completion(l, nil)
+                        let list = torrents.flatMap({
+                            TransmissionTorrent(data: $0)
+                        })
+						completion(list, nil)
 					}
 				case .Error(let error):
 					completion(nil, error)
