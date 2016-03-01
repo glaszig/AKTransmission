@@ -10,7 +10,7 @@ import Foundation
 
 // TODO: Make it work
 public enum TransmissionTorrentStatus : Int {
-	case Paused =  0
+	case Paused = 0
 	case Downloading = 4 // DL & UL
 	case Done = 6 // UL
 }
