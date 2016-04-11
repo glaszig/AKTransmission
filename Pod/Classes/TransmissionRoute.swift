@@ -13,6 +13,7 @@ enum TransmissionRoute : URLRequestConvertible {
 
 	case MagnetLink(String)
 	case SessionGet
+	case SessionSet([String: AnyObject])
 	case SessionStats
 	case TorrentGet
 	case TorrentStop([Int])
@@ -29,6 +30,12 @@ enum TransmissionRoute : URLRequestConvertible {
 		case .SessionGet:
 			return [
 				"method": "session-get",
+			]
+			
+		case .SessionSet(let arguments):
+			return [
+				"method": "session-set",
+				"arguments" : arguments
 			]
 
 		case .SessionStats:

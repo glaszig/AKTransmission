@@ -12,6 +12,7 @@
 		1191F2171CF2320249A06BC18956902B /* Pods-AKTransmission_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC94399FD18A91F9FD7932BFB8565B3 /* Pods-AKTransmission_Tests-dummy.m */; };
 		11F7FA291E9133753FDC9F3B264068F3 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7835749D1C4FA403E4BB17A0C787EDCA /* Result.swift */; };
 		122F13EADD437915A55EC9F2D59CFC8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFCE8A3DC08536A2B19894C1FF3E86D /* Foundation.framework */; };
+		170537731CBB9F8B00DB3083 /* TransmissionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170537721CBB9F8B00DB3083 /* TransmissionSession.swift */; };
 		174E11B91BF0A2C200C4FDA6 /* TransmissionRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E11B81BF0A2C200C4FDA6 /* TransmissionRoute.swift */; };
 		174E11BD1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E11BC1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift */; };
 		174FE26519200F6E62E0B1C422BEDA3D /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23887509C9FF173ECBE0A470EDD527 /* Request.swift */; };
@@ -90,6 +91,7 @@
 		0D0AF30B5A6520B51E5748C5A8F1644B /* Pods-AKTransmission_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-AKTransmission_Tests.modulemap"; sourceTree = "<group>"; };
 		10653C142FFDF1986227894BF0317944 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
 		10F4BCA6DEE1C4243F5D61D08AA8BB94 /* Pods-AKTransmission_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AKTransmission_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		170537721CBB9F8B00DB3083 /* TransmissionSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionSession.swift; sourceTree = "<group>"; };
 		174E11B81BF0A2C200C4FDA6 /* TransmissionRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionRoute.swift; sourceTree = "<group>"; };
 		174E11BC1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionTorrent.swift; sourceTree = "<group>"; };
 		1BD12888A6463BD43868CB07FB52CACD /* Pods-AKTransmission_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AKTransmission_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				EBAFE853064DF50A3D0C659DB36AD455 /* Transmission.swift */,
 				174E11B81BF0A2C200C4FDA6 /* TransmissionRoute.swift */,
 				174E11BC1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift */,
+				170537721CBB9F8B00DB3083 /* TransmissionSession.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				174E11BD1BF0D6DE00C4FDA6 /* TransmissionTorrent.swift in Sources */,
+				170537731CBB9F8B00DB3083 /* TransmissionSession.swift in Sources */,
 				174E11B91BF0A2C200C4FDA6 /* TransmissionRoute.swift in Sources */,
 				920639D8FA339BACDB401736AFA6B7DD /* AKTransmission-dummy.m in Sources */,
 				18C86A8EA539AD176C728A049C3D80EA /* Transmission.swift in Sources */,

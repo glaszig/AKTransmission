@@ -9,50 +9,67 @@
 import Foundation
 
 // TODO: Make it work
-public enum TransmissionTorrentStatus : Int {
+public enum TransmissionTorrentStatus: Int {
 	case Paused = 0
-	case Downloading = 4 // DL & UL
-	case Done = 6 // UL
+	case Queued = 3
+	case Downloading = 4
+	case Seeding = 6
 }
 
+public func == (left: TransmissionTorrent, right: TransmissionTorrent) -> Bool {
+	return left.hashValue == right.hashValue
+}
 
-public class TransmissionTorrent {
-	public var id: Int!
-	public var percentDone: Float!
-	public var downloadDir: String!
-	public var name: String!
-	public var queuePosition: Int!
+public class TransmissionTorrent: Hashable {
 
-	public var peersSendingToUs: Int!
-	public var peersConnected: Int!
+	/// Torrent id
+	public let id: Int
 
-	public var status: TransmissionTorrentStatus!
-	public var totalSize: Int!
+	public let percentDone: Float
+	public let downloadDir: String
+	public let name: String
+	public let queuePosition: Int
 
-	public var addedDate: NSDate!
-	public var rateDownload: Int!
-	public var rateUpload: Int!
-	public var isFinished: Bool!
-	public var eta: NSTimeInterval!
+	public let peersSendingToUs: Int
+	public let peersConnected: Int
 
-	init(data:[String: AnyObject]) {
-		name = data["name"] as? String
-		downloadDir = data["downloadDir"] as? String
-		id = data["id"] as? Int
-		percentDone = data["percentDone"] as? Float
-		queuePosition = data["queuePosition"] as? Int
-		peersSendingToUs = data["peersSendingToUs"] as? Int
-		peersConnected = data["peersConnected"] as? Int
-		isFinished = data["isFinished"] as? Bool
-		if let c = data["status"] as? Int {
-			status = TransmissionTorrentStatus(rawValue: c)
+	public let status: TransmissionTorrentStatus
+	public let totalSize: Int
+
+	public let addedDate: NSDate
+	public let rateDownload: Int
+	public let rateUpload: Int
+	public let isFinished: Bool
+	public let eta: NSTimeInterval
+
+
+	init?(data: [String: AnyObject]) {
+		guard let identifier = data["id"] as? Int else {
+			return nil
 		}
-		totalSize = data["totalSize"] as? Int
-		eta = data["eta"] as? NSTimeInterval
-		rateDownload = data["rateDownload"] as? Int
-		rateUpload = data["rateUpload"] as? Int
-		if let c = data["addedDate"] as? Double {
-			addedDate = NSDate(timeIntervalSince1970: c)
+
+		id = identifier
+		name = data["name"] as! String
+		downloadDir = data["downloadDir"] as! String
+		percentDone = data["percentDone"] as! Float
+		queuePosition = data["queuePosition"] as! Int
+		peersSendingToUs = data["peersSendingToUs"] as! Int
+		peersConnected = data["peersConnected"] as! Int
+		isFinished = data["isFinished"] as! Bool
+		if let c = data["status"] as? Int, stt = TransmissionTorrentStatus(rawValue: c) {
+			status = stt
+		} else {
+			print(data["status"])
+			fatalError("Unknow status please report to the autor")
 		}
+		totalSize = data["totalSize"] as! Int
+		eta = data["eta"] as! NSTimeInterval
+		rateDownload = data["rateDownload"] as! Int
+		rateUpload = data["rateUpload"] as! Int
+		addedDate = NSDate(timeIntervalSince1970: data["addedDate"] as! Double)
+	}
+
+	public var hashValue: Int {
+		return id
 	}
 }
