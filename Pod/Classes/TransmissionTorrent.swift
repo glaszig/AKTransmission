@@ -25,11 +25,12 @@ public class TransmissionTorrent: Hashable {
 	/// Torrent id
 	public let id: Int
 
-	public let percentDone: Float
+	public let percentDone: Float // 0.0 > 1
 	public let downloadDir: String
 	public let name: String
 	public let queuePosition: Int
 
+	public let peersGettingFromUs: Int
 	public let peersSendingToUs: Int
 	public let peersConnected: Int
 
@@ -39,7 +40,7 @@ public class TransmissionTorrent: Hashable {
 	public let addedDate: NSDate
 	public let rateDownload: Int
 	public let rateUpload: Int
-	public let isFinished: Bool
+	public let isFinished: Bool // Downloading & Seeding
 	public let eta: NSTimeInterval
 
 
@@ -54,6 +55,7 @@ public class TransmissionTorrent: Hashable {
 		percentDone = data["percentDone"] as! Float
 		queuePosition = data["queuePosition"] as! Int
 		peersSendingToUs = data["peersSendingToUs"] as! Int
+		peersGettingFromUs = data["peersGettingFromUs"] as! Int
 		peersConnected = data["peersConnected"] as! Int
 		isFinished = data["isFinished"] as! Bool
 		if let c = data["status"] as? Int, stt = TransmissionTorrentStatus(rawValue: c) {

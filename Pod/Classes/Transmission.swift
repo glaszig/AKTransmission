@@ -64,10 +64,13 @@ public class Transmission {
 
 		return Alamofire.request(request(route))
 			.authenticate(user: username, password: password)
-			.responseJSON { (response) -> Void in
-				switch self.handleResponse(response) {
+			.responseJSON { [weak self] response in
+				guard let handled = self?.handleResponse(response) else {
+					return
+				}
+				switch handled {
 				case .Retry:
-					self.loadMagnetLink(magnet, success: success)
+					self?.loadMagnetLink(magnet, success: success)
 				case .Success:
 					success(success: true, error: nil)
 				case .Error(let error):
@@ -76,13 +79,16 @@ public class Transmission {
 		}
 	}
 
-	public func sessionGet(completion: completionHandler) -> Request {
+	public func sessionGet(completion: (TransmissionSession?, NSError?) -> Void) -> Request {
 		return Alamofire.request(request(TransmissionRoute.SessionGet))
 			.authenticate(user: username, password: password)
-			.responseJSON { response in
-				switch self.handleResponse(response) {
+			.responseJSON { [weak self] response in
+				guard let handled = self?.handleResponse(response) else {
+					return
+				}
+				switch handled {
 				case .Retry:
-					self.sessionGet(completion)
+					self?.sessionGet(completion)
 				case .Success(let data):
 					completion(TransmissionSession(data: data), nil)
 				case .Error(let error):
@@ -94,10 +100,13 @@ public class Transmission {
 	public func sessionSet(arguments: [String: AnyObject], completion: completionHandler) -> Request {
 		return Alamofire.request(request(TransmissionRoute.SessionSet(arguments)))
 			.authenticate(user: username, password: password)
-			.responseJSON { response in
-				switch self.handleResponse(response) {
+			.responseJSON { [weak self] response in
+				guard let handled = self?.handleResponse(response) else {
+					return
+				}
+				switch handled {
 				case .Retry:
-					self.sessionSet(arguments, completion: completion)
+					self?.sessionSet(arguments, completion: completion)
 				case .Success(let data):
 					completion(data, nil)
 				case .Error(let error):
@@ -112,10 +121,13 @@ public class Transmission {
 		}
 		return Alamofire.request(request(TransmissionRoute.TorrentStop(ids)))
 			.authenticate(user: username, password: password)
-			.responseJSON { (response) -> Void in
-				switch self.handleResponse(response) {
+			.responseJSON { [weak self] response in
+				guard let handled = self?.handleResponse(response) else {
+					return
+				}
+				switch handled {
 				case .Retry:
-					self.pauseTorrent(torrents, completion: completion)
+					self?.pauseTorrent(torrents, completion: completion)
 				case .Success:
 					completion(true, nil)
 				case .Error(let error):
@@ -130,10 +142,13 @@ public class Transmission {
 		}
 		return Alamofire.request(request(TransmissionRoute.TorrentStart(ids)))
 			.authenticate(user: username, password: password)
-			.responseJSON { (response) -> Void in
-				switch self.handleResponse(response) {
+			.responseJSON { [weak self] response in
+				guard let handled = self?.handleResponse(response) else {
+					return
+				}
+				switch handled {
 				case .Retry:
-					self.resumeTorrent(torrents, completion: completion)
+					self?.resumeTorrent(torrents, completion: completion)
 				case .Success:
 					completion(true, nil)
 				case .Error(let error):
@@ -148,10 +163,13 @@ public class Transmission {
 		}
 		return Alamofire.request(request(TransmissionRoute.TorrentRemove(ids: ids, trashData: trashData)))
 			.authenticate(user: username, password: password)
-			.responseJSON { (response) -> Void in
-				switch self.handleResponse(response) {
+			.responseJSON { [weak self] response in
+				guard let handled = self?.handleResponse(response) else {
+					return
+				}
+				switch handled {
 				case .Retry:
-					self.removeTorrent(torrents, trashData: trashData, completion: completion)
+					self?.removeTorrent(torrents, trashData: trashData, completion: completion)
 				case .Success:
 					completion(true, nil)
 				case .Error(let error):
@@ -160,10 +178,10 @@ public class Transmission {
 		}
 	}
 
-	public func torrentGet(completion: completionHandler) -> Request {
+	public func torrentGet(completion: ([TransmissionTorrent]?, NSError?) -> Void) -> Request {
 		return Alamofire.request(request(TransmissionRoute.TorrentGet))
 			.authenticate(user: username, password: password)
-			.responseJSON { [weak self] response -> Void in
+			.responseJSON { [weak self] response in
                 guard let handled = self?.handleResponse(response) else {
                     return
                 }
@@ -172,10 +190,9 @@ public class Transmission {
 					self?.torrentGet(completion)
 				case .Success(let data):
 					if let torrents = data["torrents"] as? [[String: AnyObject]] {
-                        let list = torrents.flatMap({
-                            TransmissionTorrent(data: $0)
-                        })
-						completion(list, nil)
+						completion(torrents.flatMap({
+							TransmissionTorrent(data: $0)
+						}), nil)
 					} else {
 						completion(nil, NSError(domain: "cannot find any torrents", code: 404, userInfo: nil))
 					}
