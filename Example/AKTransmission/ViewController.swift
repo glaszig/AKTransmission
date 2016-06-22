@@ -16,17 +16,17 @@ class ViewController: UIViewController {
 
 	let client: Transmission = Transmission(host: "localhost", username: "admin", password: "admin")
 	var session: TransmissionSession?
-	var timers: [NSTimer] = []
+	var timers: [Timer] = []
 	var torrents: [TransmissionTorrent] = []
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
 		tableView.tableFooterView = UIView()
 
 		// schedule polling
-		timers.append(NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(ViewController.pollSession), userInfo: nil, repeats: true))
-		timers.append(NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(ViewController.pollTorrent), userInfo: nil, repeats: true))
+		timers.append(Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(ViewController.pollSession), userInfo: nil, repeats: true))
+		timers.append(Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(ViewController.pollTorrent), userInfo: nil, repeats: true))
 
 		// fire them
 		timers.forEach {
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 		}
 	}
 
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
 		// stop polling
@@ -106,20 +106,20 @@ class ViewController: UIViewController {
 		}
 	}
 
-	@IBAction func toggleSlowAction(sender: AnyObject) {
+	@IBAction func toggleSlowAction(_ sender: AnyObject) {
 		client.sessionSet(["alt-speed-enabled": !session!.altSpeedEnabled]) { (result, _) in
 			print(result)
 		}
 	}
 
-	@IBAction func downloadAction(sender: AnyObject) {
+	@IBAction func downloadAction(_ sender: AnyObject) {
 		let debianMagnetLink = "magnet:?xt=urn:btih:CD8158937344B2A066446BED7E7A0C45214F1245&dn=debian+8+2+0+amd64+dvd+1+iso&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337"
 		client.loadMagnetLink(debianMagnetLink) { success, error in
 			print(success)
 		}
 	}
 
-	private func timeToHuman(time: NSTimeInterval) -> String {
+	private func timeToHuman(_ time: TimeInterval) -> String {
 		let interval: Int = Int(time)
 		let day = (interval / (3600 * 24)) % (3600*24)
 		let hrs = ((interval - (day * 3600 * 24)) / 3600) % 3600
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
 		return String(format: "%2ldd %dh%dm", day, hrs, min)
 	}
 
-	private func bytesToHuman(bytes: Int) -> String {
+	private func bytesToHuman(_ bytes: Int) -> String {
 		let b = Float(bytes)
 		let base: Float = 1000
 		if b > pow(base, 3) {
@@ -145,12 +145,12 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return torrents.count
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("aCell", forIndexPath: indexPath)
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "aCell", for: indexPath)
 
 		let torrent = torrents[indexPath.row]
 		(cell.viewWithTag(1) as? UILabel)?.text = torrent.name
@@ -171,25 +171,25 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
-	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
 	}
 
-	func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
 		// pause polling
 		timers.forEach {
-			$0.fireDate = NSDate.distantFuture()
+			$0.fireDate = Date.distantFuture
 		}
 	}
 
-	func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath) {
 		// resume polling
 		timers.forEach {
-			$0.fireDate = NSDate()
+			$0.fireDate = Date()
 		}
 	}
 
-	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 		let torrent = torrents[indexPath.row]
 		var actions = [
 			UITableViewRowAction(style: UITableViewRowActionStyle.Destructive, title: "Delete", handler: { (_, indexPath) in

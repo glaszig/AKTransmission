@@ -18,7 +18,7 @@ public class Transmission {
 	public let password: String
     public let host: String
 	public let port: UInt
-    public var timeout: NSTimeInterval = 5
+    public var timeout: TimeInterval = 5
 
 	public typealias completionHandler = (AnyObject?, NSError?) -> Void
 
@@ -29,38 +29,38 @@ public class Transmission {
 		self.port = port
 	}
 
-	private func request(route: TransmissionRoute) -> NSMutableURLRequest {
-		let request = route.URLRequest
-		let comps = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!
+	private func request(_ route: TransmissionRoute) -> URLRequest {
+		var request = route.urlRequest
+		var comps = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)!
 		comps.host = host
-		comps.port = port
-		request.URL = comps.URL!
+		comps.port = Int(port)
+		request.url = comps.url!
 		request.setValue(sessionId, forHTTPHeaderField: sessionHeader)
         request.timeoutInterval = timeout
 		return request
 	}
 
 	private enum ResponseStatus {
-		case Retry
-		case Success([String: AnyObject])
-		case Error(NSError?)
+		case retry
+		case success([String: AnyObject])
+		case error(NSError?)
 	}
 
-	private func handleResponse(response: Response<AnyObject, NSError>) -> ResponseStatus {
+	private func handleResponse(_ response: Response<AnyObject, NSError>) -> ResponseStatus {
 		if let sid = response.response?.allHeaderFields[self.sessionHeader] as? String where response.response?.statusCode == 409 {
 			self.sessionId = sid
-			return .Retry
+			return .retry
 		}
 		else if let res = response.result.value as? [String: AnyObject], result = res["result"] as? String, args = res["arguments"] as? [String: AnyObject] where result == "success" {
-			return .Success(args)
+			return .success(args)
 		}
 		else {
-			return .Error(response.result.error)
+			return .error(response.result.error)
 		}
 	}
 
-	public func loadMagnetLink(magnet: String, success: ((success: Bool, error: NSError?) -> Void)) -> Request {
-		let route = TransmissionRoute.MagnetLink(magnet)
+	public func loadMagnetLink(_ magnet: String, success: ((success: Bool, error: NSError?) -> Void)) -> Request {
+		let route = TransmissionRoute.magnetLink(magnet)
 
 		return Alamofire.request(request(route))
 			.authenticate(user: username, password: password)
@@ -69,126 +69,126 @@ public class Transmission {
 					return
 				}
 				switch handled {
-				case .Retry:
+				case .retry:
 					self?.loadMagnetLink(magnet, success: success)
-				case .Success:
+				case .success:
 					success(success: true, error: nil)
-				case .Error(let error):
+				case .error(let error):
 					success(success: false, error: error)
 				}
 		}
 	}
 
-	public func sessionGet(completion: (TransmissionSession?, NSError?) -> Void) -> Request {
-		return Alamofire.request(request(TransmissionRoute.SessionGet))
+	public func sessionGet(_ completion: (TransmissionSession?, NSError?) -> Void) -> Request {
+		return Alamofire.request(request(TransmissionRoute.sessionGet))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
 					return
 				}
 				switch handled {
-				case .Retry:
+				case .retry:
 					self?.sessionGet(completion)
-				case .Success(let data):
+				case .success(let data):
 					completion(TransmissionSession(data: data), nil)
-				case .Error(let error):
+				case .error(let error):
 					completion(nil, error)
 				}
 		}
 	}
 
-	public func sessionSet(arguments: [String: AnyObject], completion: completionHandler) -> Request {
-		return Alamofire.request(request(TransmissionRoute.SessionSet(arguments)))
+	public func sessionSet(_ arguments: [String: AnyObject], completion: completionHandler) -> Request {
+		return Alamofire.request(request(TransmissionRoute.sessionSet(arguments)))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
 					return
 				}
 				switch handled {
-				case .Retry:
+				case .retry:
 					self?.sessionSet(arguments, completion: completion)
-				case .Success(let data):
+				case .success(let data):
 					completion(data, nil)
-				case .Error(let error):
+				case .error(let error):
 					completion(nil, error)
 				}
 		}
 	}
 
-	public func pauseTorrent(torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
+	public func pauseTorrent(_ torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
-		return Alamofire.request(request(TransmissionRoute.TorrentStop(ids)))
+		return Alamofire.request(request(TransmissionRoute.torrentStop(ids)))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
 					return
 				}
 				switch handled {
-				case .Retry:
+				case .retry:
 					self?.pauseTorrent(torrents, completion: completion)
-				case .Success:
+				case .success:
 					completion(true, nil)
-				case .Error(let error):
+				case .error(let error):
 					completion(nil, error)
 				}
 		}
 	}
 
-	public func resumeTorrent(torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
+	public func resumeTorrent(_ torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
-		return Alamofire.request(request(TransmissionRoute.TorrentStart(ids)))
+		return Alamofire.request(request(TransmissionRoute.torrentStart(ids)))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
 					return
 				}
 				switch handled {
-				case .Retry:
+				case .retry:
 					self?.resumeTorrent(torrents, completion: completion)
-				case .Success:
+				case .success:
 					completion(true, nil)
-				case .Error(let error):
+				case .error(let error):
 					completion(nil, error)
 				}
 		}
 	}
 
-	public func removeTorrent(torrents:[TransmissionTorrent], trashData: Bool, completion: completionHandler) -> Request {
+	public func removeTorrent(_ torrents:[TransmissionTorrent], trashData: Bool, completion: completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
-		return Alamofire.request(request(TransmissionRoute.TorrentRemove(ids: ids, trashData: trashData)))
+		return Alamofire.request(request(TransmissionRoute.torrentRemove(ids: ids, trashData: trashData)))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
 					return
 				}
 				switch handled {
-				case .Retry:
+				case .retry:
 					self?.removeTorrent(torrents, trashData: trashData, completion: completion)
-				case .Success:
+				case .success:
 					completion(true, nil)
-				case .Error(let error):
+				case .error(let error):
 					completion(nil, error)
 				}
 		}
 	}
 
-	public func torrentGet(completion: ([TransmissionTorrent]?, NSError?) -> Void) -> Request {
-		return Alamofire.request(request(TransmissionRoute.TorrentGet))
+	public func torrentGet(_ completion: ([TransmissionTorrent]?, NSError?) -> Void) -> Request {
+		return Alamofire.request(request(TransmissionRoute.torrentGet))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
                 guard let handled = self?.handleResponse(response) else {
                     return
                 }
 				switch handled {
-				case .Retry:
+				case .retry:
 					self?.torrentGet(completion)
-				case .Success(let data):
+				case .success(let data):
 					if let torrents = data["torrents"] as? [[String: AnyObject]] {
 						completion(torrents.flatMap({
 							TransmissionTorrent(data: $0)
@@ -196,7 +196,7 @@ public class Transmission {
 					} else {
 						completion(nil, NSError(domain: "cannot find any torrents", code: 404, userInfo: nil))
 					}
-				case .Error(let error):
+				case .error(let error):
 					completion(nil, error)
 				}
 		}

@@ -9,16 +9,16 @@
 import Foundation
 import Alamofire
 
-enum TransmissionRoute : URLRequestConvertible {
+enum TransmissionRoute: URLRequestConvertible {
 
-	case MagnetLink(String)
-	case SessionGet
-	case SessionSet([String: AnyObject])
-	case SessionStats
-	case TorrentGet
-	case TorrentStop([Int])
-	case TorrentStart([Int])
-	case TorrentRemove(ids: [Int], trashData: Bool) // from list
+	case magnetLink(String)
+	case sessionGet
+	case sessionSet([String: AnyObject])
+	case sessionStats
+	case torrentGet
+	case torrentStop([Int])
+	case torrentStart([Int])
+	case torrentRemove(ids: [Int], trashData: Bool) // from list
 
 	var HTTPMethod: Alamofire.Method {
 		return Alamofire.Method.POST
@@ -27,23 +27,23 @@ enum TransmissionRoute : URLRequestConvertible {
 	var params: [String: AnyObject] {
 
 		switch self {
-		case .SessionGet:
+		case .sessionGet:
 			return [
 				"method": "session-get",
 			]
 			
-		case .SessionSet(let arguments):
+		case .sessionSet(let arguments):
 			return [
 				"method": "session-set",
 				"arguments" : arguments
 			]
 
-		case .SessionStats:
+		case .sessionStats:
 			return [
 				"method": "session-stats",
 			]
 
-		case .TorrentStart(let ids):
+		case .torrentStart(let ids):
 			return [
 				"method": "torrent-start",
 				"arguments" : [
@@ -51,7 +51,7 @@ enum TransmissionRoute : URLRequestConvertible {
 				]
 			]
 
-		case .TorrentRemove(let ids, let trashData):
+		case .torrentRemove(let ids, let trashData):
 			return [
 				"method": "torrent-remove",
 				"arguments" : [
@@ -60,7 +60,7 @@ enum TransmissionRoute : URLRequestConvertible {
 				]
 			]
 
-		case .TorrentStop(let ids):
+		case .torrentStop(let ids):
 			return [
 				"method": "torrent-stop",
 				"arguments" : [
@@ -68,7 +68,7 @@ enum TransmissionRoute : URLRequestConvertible {
 				]
 			]
 
-		case .TorrentGet:
+		case .torrentGet:
 			return [
 				"method": "torrent-get",
 				"arguments": [
@@ -76,7 +76,7 @@ enum TransmissionRoute : URLRequestConvertible {
 				]
 			]
 
-		case .MagnetLink(let link):
+		case .magnetLink(let link):
 			return [
 				"method": "torrent-add",
 				"arguments": [
@@ -87,10 +87,10 @@ enum TransmissionRoute : URLRequestConvertible {
 		}
 	}
 
-	var URLRequest: NSMutableURLRequest {
-		let request = NSMutableURLRequest(URL: NSURL(string: "http://dummyhost.com/transmission/rpc")!)
-		request.HTTPMethod = HTTPMethod.rawValue
-		return Alamofire.ParameterEncoding.JSON.encode(request, parameters: params).0
+	var urlRequest: URLRequest {
+		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
+		request.httpMethod = HTTPMethod.rawValue
+		return Alamofire.ParameterEncoding.json.encode(request, parameters: params).0
 	}
 
 }

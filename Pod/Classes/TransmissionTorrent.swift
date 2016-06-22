@@ -10,10 +10,10 @@ import Foundation
 
 // TODO: Make it work
 public enum TransmissionTorrentStatus: Int {
-	case Paused = 0
-	case Queued = 3
-	case Downloading = 4
-	case Seeding = 6
+	case paused = 0
+	case queued = 3
+	case downloading = 4
+	case seeding = 6
 }
 
 public func == (left: TransmissionTorrent, right: TransmissionTorrent) -> Bool {
@@ -37,11 +37,11 @@ public class TransmissionTorrent: Hashable {
 	public let status: TransmissionTorrentStatus
 	public let totalSize: Int
 
-	public let addedDate: NSDate
+	public let addedDate: Date
 	public let rateDownload: Int
 	public let rateUpload: Int
 	public let isFinished: Bool // Downloading & Seeding
-	public let eta: NSTimeInterval
+	public let eta: TimeInterval
 
 
 	init?(data: [String: AnyObject]) {
@@ -65,10 +65,10 @@ public class TransmissionTorrent: Hashable {
 			fatalError("Unknow status please report to the autor")
 		}
 		totalSize = data["totalSize"] as! Int
-		eta = data["eta"] as! NSTimeInterval
+		eta = data["eta"] as! TimeInterval
 		rateDownload = data["rateDownload"] as! Int
 		rateUpload = data["rateUpload"] as! Int
-		addedDate = NSDate(timeIntervalSince1970: data["addedDate"] as! Double)
+		addedDate = Date(timeIntervalSince1970: data["addedDate"] as! Double)
 	}
 
 	public var hashValue: Int {
