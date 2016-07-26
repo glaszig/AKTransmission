@@ -10,14 +10,14 @@
 		1714EF6A1D47572200E1D056 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1714EF691D47572200E1D056 /* Info.plist */; };
 		1714EF6D1D47575200E1D056 /* AKTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 1714EF6C1D47575200E1D056 /* AKTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1714EF6E1D47575200E1D056 /* AKTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 1714EF6C1D47575200E1D056 /* AKTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1714EF711D47590700E1D056 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1714EF701D47590700E1D056 /* Alamofire.framework */; };
+		1714EF731D47591000E1D056 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1714EF721D47591000E1D056 /* Alamofire.framework */; };
 		174E4FE91D47523800EF2FC7 /* AKTransmission.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174E4FD41D47523800EF2FC7 /* AKTransmission.framework */; };
 		174E4FEB1D47523800EF2FC7 /* AKTransmission.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 174E4FD41D47523800EF2FC7 /* AKTransmission.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		174E4FF61D47524900EF2FC7 /* Transmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF21D47524900EF2FC7 /* Transmission.swift */; };
 		174E4FF71D47524900EF2FC7 /* TransmissionRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF31D47524900EF2FC7 /* TransmissionRoute.swift */; };
 		174E4FF81D47524900EF2FC7 /* TransmissionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF41D47524900EF2FC7 /* TransmissionSession.swift */; };
 		174E4FF91D47524900EF2FC7 /* TransmissionTorrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF51D47524900EF2FC7 /* TransmissionTorrent.swift */; };
-		174E50361D47532100EF2FC7 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174E50221D4752EA00EF2FC7 /* Alamofire.framework */; };
-		174E50391D47532D00EF2FC7 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174E502A1D4752EA00EF2FC7 /* Alamofire.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -115,6 +115,8 @@
 /* Begin PBXFileReference section */
 		1714EF691D47572200E1D056 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1714EF6C1D47575200E1D056 /* AKTransmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTransmission.h; sourceTree = "<group>"; };
+		1714EF701D47590700E1D056 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		1714EF721D47591000E1D056 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
 		174E4FD41D47523800EF2FC7 /* AKTransmission.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AKTransmission.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		174E4FF21D47524900EF2FC7 /* Transmission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transmission.swift; path = Source/Transmission.swift; sourceTree = "<group>"; };
 		174E4FF31D47524900EF2FC7 /* TransmissionRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransmissionRoute.swift; path = Source/TransmissionRoute.swift; sourceTree = "<group>"; };
@@ -137,7 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				174E50361D47532100EF2FC7 /* Alamofire.framework in Frameworks */,
+				1714EF711D47590700E1D056 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				174E50391D47532D00EF2FC7 /* Alamofire.framework in Frameworks */,
+				1714EF731D47591000E1D056 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +162,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1714EF6F1D47590700E1D056 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1714EF721D47591000E1D056 /* Alamofire.framework */,
+				1714EF701D47590700E1D056 /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		174E4FCE1D4751E900EF2FC7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +204,7 @@
 				174E4FCE1D4751E900EF2FC7 /* Source */,
 				607FACD11AFB9204008FA782 /* Products */,
 				174E50161D4752EA00EF2FC7 /* Alamofire.xcodeproj */,
+				1714EF6F1D47590700E1D056 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -523,6 +535,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -551,6 +567,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -578,6 +598,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -605,6 +629,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
