@@ -18,23 +18,23 @@ public class Transmission {
 	public let password: String
     public let host: String
 	public let port: UInt
-    public var timeout: TimeInterval = 5
+    public var timeout: NSTimeInterval = 5
 
 	public typealias completionHandler = (AnyObject?, NSError?) -> Void
 
-	public init(host: String, username: String, password: String, port: UInt! = 9091){
+	public init(host: String, username: String, password: String, port: UInt! = 9091) {
 		self.username = username
 		self.password = password
 		self.host = host
 		self.port = port
 	}
 
-	private func request(_ route: TransmissionRoute) -> URLRequest {
-		var request = route.urlRequest
-		var comps = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)!
+	private func request(route: TransmissionRoute) -> NSURLRequest {
+		let request = route.URLRequest
+		let comps = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!
 		comps.host = host
 		comps.port = Int(port)
-		request.url = comps.url!
+		request.URL = comps.URL!
 		request.setValue(sessionId, forHTTPHeaderField: sessionHeader)
         request.timeoutInterval = timeout
 		return request
@@ -46,20 +46,18 @@ public class Transmission {
 		case error(NSError?)
 	}
 
-	private func handleResponse(_ response: Response<AnyObject, NSError>) -> ResponseStatus {
-		if let sid = response.response?.allHeaderFields[self.sessionHeader] as? String, response.response?.statusCode == 409 {
+	private func handleResponse(response: Response<AnyObject, NSError>) -> ResponseStatus {
+		if let sid = response.response?.allHeaderFields[self.sessionHeader] as? String where response.response?.statusCode == 409 {
 			self.sessionId = sid
 			return .retry
-		}
-		else if let res = response.result.value as? [String: AnyObject], let result = res["result"] as? String, let args = res["arguments"] as? [String: AnyObject], result == "success" {
+		} else if let res = response.result.value as? [String: AnyObject], let result = res["result"] as? String, let args = res["arguments"] as? [String: AnyObject] where result == "success" {
 			return .success(args)
-		}
-		else {
+		} else {
 			return .error(response.result.error)
 		}
 	}
 
-	public func loadMagnetLink(_ magnet: String, success: ((success: Bool, error: NSError?) -> Void)) -> Request {
+	public func loadMagnetLink(magnet: String, success: ((success: Bool, error: NSError?) -> Void)) -> Request {
 		let route = TransmissionRoute.magnetLink(magnet)
 
 		return Alamofire.request(request(route))
@@ -79,7 +77,7 @@ public class Transmission {
 		}
 	}
 
-	public func sessionGet(_ completion: (TransmissionSession?, NSError?) -> Void) -> Request {
+	public func sessionGet(completion: (TransmissionSession?, NSError?) -> Void) -> Request {
 		return Alamofire.request(request(TransmissionRoute.sessionGet))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
@@ -97,7 +95,7 @@ public class Transmission {
 		}
 	}
 
-	public func sessionSet(_ arguments: [String: AnyObject], completion: completionHandler) -> Request {
+	public func sessionSet(arguments: [String: AnyObject], completion: completionHandler) -> Request {
 		return Alamofire.request(request(TransmissionRoute.sessionSet(arguments)))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
@@ -115,7 +113,7 @@ public class Transmission {
 		}
 	}
 
-	public func pauseTorrent(_ torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
+	public func pauseTorrent(torrents: [TransmissionTorrent], completion: completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
@@ -136,7 +134,7 @@ public class Transmission {
 		}
 	}
 
-	public func resumeTorrent(_ torrents:[TransmissionTorrent], completion: completionHandler) -> Request {
+	public func resumeTorrent(torrents: [TransmissionTorrent], completion: completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
@@ -157,7 +155,7 @@ public class Transmission {
 		}
 	}
 
-	public func removeTorrent(_ torrents:[TransmissionTorrent], trashData: Bool, completion: completionHandler) -> Request {
+	public func removeTorrent(torrents: [TransmissionTorrent], trashData: Bool, completion: completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
@@ -178,7 +176,7 @@ public class Transmission {
 		}
 	}
 
-	public func torrentGet(_ completion: ([TransmissionTorrent]?, NSError?) -> Void) -> Request {
+	public func torrentGet(completion: ([TransmissionTorrent]?, NSError?) -> Void) -> Request {
 		return Alamofire.request(request(TransmissionRoute.torrentGet))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in

@@ -31,7 +31,7 @@ enum TransmissionRoute: URLRequestConvertible {
 			return [
 				"method": "session-get",
 			]
-			
+
 		case .sessionSet(let arguments):
 			return [
 				"method": "session-set",
@@ -72,7 +72,7 @@ enum TransmissionRoute: URLRequestConvertible {
 			return [
 				"method": "torrent-get",
 				"arguments": [
-					"fields": ["id","addedDate","name","totalSize","error","errorString","eta","isFinished","isStalled","leftUntilDone","metadataPercentComplete","peersConnected","peersGettingFromUs","peersSendingToUs","percentDone","queuePosition","rateDownload","rateUpload","recheckProgress","seedRatioMode","seedRatioLimit","sizeWhenDone","status","trackers","downloadDir","uploadedEver","uploadRatio","webseedsSendingToUs"]
+					"fields": ["id", "addedDate", "name", "totalSize", "error", "errorString", "eta", "isFinished", "isStalled", "leftUntilDone", "metadataPercentComplete", "peersConnected", "peersGettingFromUs", "peersSendingToUs", "percentDone", "queuePosition", "rateDownload", "rateUpload", "recheckProgress", "seedRatioMode", "seedRatioLimit", "sizeWhenDone", "status", "trackers", "downloadDir", "uploadedEver", "uploadRatio", "webseedsSendingToUs"]
 				]
 			]
 
@@ -87,10 +87,10 @@ enum TransmissionRoute: URLRequestConvertible {
 		}
 	}
 
-	var urlRequest: URLRequest {
-		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
-		request.httpMethod = HTTPMethod
-		return Alamofire.ParameterEncoding.json.encode(request, parameters: params).0
+	var URLRequest: NSMutableURLRequest {
+		let request = NSMutableURLRequest(URL: NSURL(string: "http://dummyhost.com/transmission/rpc")!)
+		request.HTTPMethod = HTTPMethod
+        return Alamofire.ParameterEncoding.JSON.encode(request, parameters: params).0
 	}
 
 }

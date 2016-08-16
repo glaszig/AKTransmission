@@ -37,11 +37,11 @@ public class TransmissionTorrent: Hashable {
 	public let status: TransmissionTorrentStatus
 	public let totalSize: Int
 
-	public let addedDate: Date
+	public let addedDate: NSDate
 	public let rateDownload: Int
 	public let rateUpload: Int
 	public let isFinished: Bool // Downloading & Seeding
-	public let eta: TimeInterval
+	public let eta: NSTimeInterval
 
 
 	init?(data: [String: AnyObject]) {
@@ -66,10 +66,10 @@ public class TransmissionTorrent: Hashable {
 			fatalError("Unknow status please report to the autor")
 		}
 		totalSize = data["totalSize"] as! Int
-		eta = data["eta"] as! TimeInterval
+		eta = data["eta"] as! NSTimeInterval
 		rateDownload = data["rateDownload"] as! Int
 		rateUpload = data["rateUpload"] as! Int
-		addedDate = Date(timeIntervalSince1970: data["addedDate"] as! Double)
+		addedDate = NSDate(timeIntervalSince1970: data["addedDate"] as! Double)
 	}
 
 	public var hashValue: Int {
