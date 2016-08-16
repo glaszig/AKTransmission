@@ -20,8 +20,8 @@ enum TransmissionRoute: URLRequestConvertible {
 	case torrentStart([Int])
 	case torrentRemove(ids: [Int], trashData: Bool) // from list
 
-	var HTTPMethod: Alamofire.Method {
-		return Alamofire.Method.POST
+	var HTTPMethod: String {
+		return "POST"
 	}
 
 	var params: [String: AnyObject] {
@@ -89,7 +89,7 @@ enum TransmissionRoute: URLRequestConvertible {
 
 	var urlRequest: URLRequest {
 		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
-		request.httpMethod = HTTPMethod.rawValue
+		request.httpMethod = HTTPMethod
 		return Alamofire.ParameterEncoding.json.encode(request, parameters: params).0
 	}
 

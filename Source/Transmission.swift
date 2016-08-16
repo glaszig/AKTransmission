@@ -51,7 +51,7 @@ public class Transmission {
 			self.sessionId = sid
 			return .retry
 		}
-		else if let res = response.result.value as? [String: AnyObject], let result = res["result"] as? String, let args = res["arguments"] as? [String: AnyObject] where result == "success" {
+		else if let res = response.result.value as? [String: AnyObject], let result = res["result"] as? String, let args = res["arguments"] as? [String: AnyObject], result == "success" {
 			return .success(args)
 		}
 		else {
