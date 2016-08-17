@@ -35,11 +35,11 @@ public class TransmissionTorrent: Hashable {
 	public let peersConnected: Int
 
 	public let status: TransmissionTorrentStatus
-	public let totalSize: Int
+	public let totalSize: Int64 // byte size
 
 	public let addedDate: NSDate
-	public let rateDownload: Int
-	public let rateUpload: Int
+	public let rateDownload: Int64 // byte size
+	public let rateUpload: Int64 // byte size
 	public let isFinished: Bool // Downloading & Seeding
 	public let eta: NSTimeInterval
 
@@ -65,10 +65,10 @@ public class TransmissionTorrent: Hashable {
 			print(data["status"])
 			fatalError("Unknow status please report to the autor")
 		}
-		totalSize = data["totalSize"] as! Int
+		totalSize = Int64(data["totalSize"] as! Int) ?? 0
 		eta = data["eta"] as! NSTimeInterval
-		rateDownload = data["rateDownload"] as! Int
-		rateUpload = data["rateUpload"] as! Int
+		rateDownload = Int64(data["rateDownload"] as! Int) ?? 0
+		rateUpload = Int64(data["rateUpload"] as! Int) ?? 0
 		addedDate = NSDate(timeIntervalSince1970: data["addedDate"] as! Double)
 	}
 

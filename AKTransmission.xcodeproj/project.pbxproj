@@ -12,6 +12,8 @@
 		1714EF6E1D47575200E1D056 /* AKTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 1714EF6C1D47575200E1D056 /* AKTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1714EF711D47590700E1D056 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1714EF701D47590700E1D056 /* Alamofire.framework */; };
 		1714EF731D47591000E1D056 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1714EF721D47591000E1D056 /* Alamofire.framework */; };
+		171A5E551D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A5E541D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift */; };
+		171A5E561D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A5E541D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift */; };
 		174E4FE91D47523800EF2FC7 /* AKTransmission.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174E4FD41D47523800EF2FC7 /* AKTransmission.framework */; };
 		174E4FEB1D47523800EF2FC7 /* AKTransmission.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 174E4FD41D47523800EF2FC7 /* AKTransmission.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		174E4FF61D47524900EF2FC7 /* Transmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF21D47524900EF2FC7 /* Transmission.swift */; };
@@ -116,6 +118,7 @@
 		1714EF6C1D47575200E1D056 /* AKTransmission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTransmission.h; sourceTree = "<group>"; };
 		1714EF701D47590700E1D056 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		1714EF721D47591000E1D056 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
+		171A5E541D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionTableViewDataSource.swift; sourceTree = "<group>"; };
 		174E4FD41D47523800EF2FC7 /* AKTransmission.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AKTransmission.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		174E4FF21D47524900EF2FC7 /* Transmission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transmission.swift; path = Source/Transmission.swift; sourceTree = "<group>"; };
 		174E4FF31D47524900EF2FC7 /* TransmissionRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransmissionRoute.swift; path = Source/TransmissionRoute.swift; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				174E4FF21D47524900EF2FC7 /* Transmission.swift */,
+				171A5E541D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift */,
 				174E4FF31D47524900EF2FC7 /* TransmissionRoute.swift */,
 				174E4FF41D47524900EF2FC7 /* TransmissionSession.swift */,
 				174E4FF51D47524900EF2FC7 /* TransmissionTorrent.swift */,
@@ -458,6 +462,7 @@
 				174E4FF91D47524900EF2FC7 /* TransmissionTorrent.swift in Sources */,
 				174E4FF81D47524900EF2FC7 /* TransmissionSession.swift in Sources */,
 				174E4FF61D47524900EF2FC7 /* Transmission.swift in Sources */,
+				171A5E551D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift in Sources */,
 				174E4FF71D47524900EF2FC7 /* TransmissionRoute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				171A5E561D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +584,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -598,6 +605,7 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -610,6 +618,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
