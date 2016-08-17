@@ -99,7 +99,10 @@ public class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
             }
             // Update rows
             if updateIndex.count > 0 {
-                ss.theTableview.reloadRowsAtIndexPaths(updateIndex.flatMap({NSIndexPath(forRow: $0, inSection: 0)}), withRowAnimation: .None)
+                let indexPaths = updateIndex.flatMap { NSIndexPath(forRow: $0, inSection: 0) }
+                ss.theTableview.indexPathsForVisibleRows?.filter { indexPaths.contains($0) }.forEach {
+                    (ss.theTableview.cellForRowAtIndexPath($0) as? TransmissionTableViewCell)?.torrent = torrents[$0.row]
+                }
             }
             // Delete rows
             if deletedIndexes.count > 0 {
