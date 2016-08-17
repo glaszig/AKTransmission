@@ -16,17 +16,17 @@ class ViewController: UIViewController {
 
 	let client: Transmission = Transmission(host: "localhost", username: "admin", password: "admin")
 	var session: TransmissionSession?
-	var timers: [Timer] = []
+	var timers: [NSTimer] = []
 	var torrents: [TransmissionTorrent] = []
 
-	override func viewWillAppear(_ animated: Bool) {
+	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 
 		tableView.tableFooterView = UIView()
 
 		// schedule polling
-		timers.append(Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(ViewController.pollSession), userInfo: nil, repeats: true))
-		timers.append(Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(ViewController.pollTorrent), userInfo: nil, repeats: true))
+		timers.append(NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(ViewController.pollSession), userInfo: nil, repeats: true))
+		timers.append(NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(ViewController.pollTorrent), userInfo: nil, repeats: true))
 
 		// fire them
 		timers.forEach {
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 		}
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
+	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
 
 		// stop polling
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 		client.sessionGet { [weak self] result, error in
 			if let session = result {
 				self?.session = session
-                self?.slowModeButton?.tintColor = session.altSpeedEnabled ? UIColor.red() : UIColor.blue()
+                self?.slowModeButton?.tintColor = session.altSpeedEnabled ? UIColor.redColor() : UIColor.blueColor()
 			}
 		}
 	}
@@ -63,11 +63,11 @@ class ViewController: UIViewController {
 				var countInsert = 0
 
 				torrents.forEach { torrent in
-					if let index = ss.torrents.index(of: torrent) {
+					if let index = ss.torrents.indexOf(torrent) {
 						ss.torrents[index] = torrent
 						updateIndex.append(index)
 						// update value
-						
+
 					} else {
 						ss.torrents.append(torrent)
 						countInsert += 1
@@ -77,26 +77,26 @@ class ViewController: UIViewController {
 				let deletedIndexes = self?.torrents.filter {
 						!torrents.contains($0)
 					} .flatMap {
-						self?.torrents.index(of: $0)
+						self?.torrents.indexOf($0)
 					}
 
 				// Insert rows
 				if countInsert > 0 {
-                    let indexPaths: [IndexPath] = (0..<countInsert).flatMap {
-						IndexPath(row: ss.tableView.numberOfRows(inSection: 0) + $0, section: 0)
+                    let indexPaths: [NSIndexPath] = (0..<countInsert).flatMap {
+						NSIndexPath(forRow: ss.tableView.numberOfRowsInSection(0) + $0, inSection: 0)
 					}
-                    ss.tableView.insertRows(at: indexPaths, with: .automatic)
+                    ss.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
 				}
 				// Update rows
 				if updateIndex.count > 0 {
-                    ss.tableView.reloadRows(at: updateIndex.flatMap({IndexPath(row: $0, section: 0)}), with: .none)
+                    ss.tableView.reloadRowsAtIndexPaths(updateIndex.flatMap({NSIndexPath(forRow: $0, inSection: 0)}), withRowAnimation: .None)
 				}
 				// Delete rows
 				if deletedIndexes?.count > 0 {
 					deletedIndexes?.forEach {
-						ss.torrents.remove(at: $0)
+						ss.torrents.removeAtIndex($0)
 					}
-                    ss.tableView.deleteRows(at: deletedIndexes!.flatMap({IndexPath(row: $0, section: 0)}), with: .none)
+                    ss.tableView.deleteRowsAtIndexPaths(deletedIndexes!.flatMap({NSIndexPath(forRow: $0, inSection: 0)}), withRowAnimation: .None)
 				}
 
 //				print("DEL : \(deletedIndexes?.count)")
@@ -106,20 +106,20 @@ class ViewController: UIViewController {
 		}
 	}
 
-	@IBAction func toggleSlowAction(_ sender: AnyObject) {
+	@IBAction func toggleSlowAction(sender: AnyObject) {
 		client.sessionSet(["alt-speed-enabled": !session!.altSpeedEnabled]) { (result, _) in
 			print(result)
 		}
 	}
 
-	@IBAction func downloadAction(_ sender: AnyObject) {
+	@IBAction func downloadAction(sender: AnyObject) {
 		let debianMagnetLink = "magnet:?xt=urn:btih:CD8158937344B2A066446BED7E7A0C45214F1245&dn=debian+8+2+0+amd64+dvd+1+iso&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337"
 		client.loadMagnetLink(debianMagnetLink) { success, error in
 			print(success)
 		}
 	}
 
-	private func timeToHuman(_ time: TimeInterval) -> String {
+	private func timeToHuman(time: NSTimeInterval) -> String {
 		let interval: Int = Int(time)
 		let day = (interval / (3600 * 24)) % (3600*24)
 		let hrs = ((interval - (day * 3600 * 24)) / 3600) % 3600
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
 		return String(format: "%2ldd %dh%dm", day, hrs, min)
 	}
 
-	private func bytesToHuman(_ bytes: Int) -> String {
+	private func bytesToHuman(bytes: Int) -> String {
 		let b = Float(bytes)
 		let base: Float = 1000
 		if b > pow(base, 3) {
@@ -136,7 +136,7 @@ class ViewController: UIViewController {
 			return String(format: "%.02f MB", b/pow(base, 2))
 		} else if b > base {
 			return String(format: "%.02f KB", b/base)
-		} else  {
+		} else {
 			return "\(bytes) B"
 		}
 
@@ -144,13 +144,12 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource {
-
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return torrents.count
 	}
 
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "aCell", for: indexPath)
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCellWithIdentifier("aCell")!
 
 		let torrent = torrents[indexPath.row]
 		(cell.viewWithTag(1) as? UILabel)?.text = torrent.name
@@ -172,47 +171,47 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
 
-	func tableView(_ tableView: UITableView, canEditRowAtindexPath: IndexPath) -> Bool {
+	func tableView(tableView: UITableView, canEditRowAtindexPath: NSIndexPath) -> Bool {
 		return true
 	}
 
-	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+	func tableView(tableView: UITableView, willBeginEditingRowAt indexPath: NSIndexPath) {
 		// pause polling
 		timers.forEach {
-			$0.fireDate = Date.distantFuture
+			$0.fireDate = NSDate.distantFuture()
 		}
 	}
 
-	func tableView(_ tableView: UITableView, didEndEditingRowAtindexPath: IndexPath) {
+	func tableView(tableView: UITableView, didEndEditingRowAtindexPath: NSIndexPath) {
 		// resume polling
 		timers.forEach {
-			$0.fireDate = Date()
+			$0.fireDate = NSDate()
 		}
 	}
 
-	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+	func tableView(tableView: UITableView, editActionsForRowAt indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 		let torrent = torrents[indexPath.row]
 		var actions = [
-			UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Delete", handler: { (_, indexPath) in
+			UITableViewRowAction(style: .Destructive, title: "Delete", handler: { (_, indexPath) in
 				self.client.removeTorrent([torrent], trashData: true) { result, error in
 					if (result as? Bool) == true {
-						self.torrents.remove(at: indexPath.row)
-						self.tableView.deleteRows(at: [indexPath], with: .automatic)
-						self.tableView.isEditing = false
+						self.torrents.removeAtIndex(indexPath.row)
+						self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+						self.tableView.setEditing(false, animated: true)
 					}
 				}
 			})
 		]
 		if torrent.status == .paused {
-			actions.append(UITableViewRowAction(style: .normal, title: "Resume", handler: { (_, indexPath) in
+			actions.append(UITableViewRowAction(style: .Normal, title: "Resume", handler: { (_, indexPath) in
 				self.client.resumeTorrent([torrent], completion: { _, _ in
-					tableView.isEditing = false
+					tableView.setEditing(false, animated: true)
 				})
 			}))
 		} else if torrent.status == .downloading || torrent.status == .seeding {
-			actions.append(UITableViewRowAction(style: .normal, title: "Pause", handler: { (_, indexPath) in
-				self.client.pauseTorrent([torrent], completion: { _, _ in
-					tableView.isEditing = false
+			actions.append(UITableViewRowAction(style: .Normal, title: "Pause", handler: { (_, indexPath) in
+                self.client.pauseTorrent([torrent], completion: { _, _ in
+                    tableView.setEditing(false, animated: true)
 				})
 			}))
 		}
