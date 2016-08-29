@@ -8,18 +8,18 @@
 
 import Foundation
 
-public class TransmissionSession {
+open class TransmissionSession {
 
-	public let version: String
+	open let version: String
 
-	public let altSpeedDown: Int
-	public let altSpeedUp: Int
-	public let altSpeedEnabled: Bool
+	open let altSpeedDown: Int
+	open let altSpeedUp: Int
+	open let altSpeedEnabled: Bool
 
-	public let speedLimitDown: Int
-	public let speedLimitUp: Int
-	public let speedLimitUpEnabled: Bool
-	public let speedLimitDownEnabled: Bool
+	open let speedLimitDown: Int
+	open let speedLimitUp: Int
+	open let speedLimitUpEnabled: Bool
+	open let speedLimitDownEnabled: Bool
 
 	init?(data: [String: AnyObject]!) {
 		guard let ver = data["version"] as? String else {

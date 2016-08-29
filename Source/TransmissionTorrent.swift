@@ -20,28 +20,28 @@ public func == (left: TransmissionTorrent, right: TransmissionTorrent) -> Bool {
 	return left.hashValue == right.hashValue
 }
 
-public class TransmissionTorrent: Hashable {
+open class TransmissionTorrent: Hashable {
 
 	/// Torrent id
-	public let id: Int
+	open let id: Int
 
-	public let percentDone: Float // 0.0 > 1
-	public let downloadDir: String
-	public let name: String
-	public let queuePosition: Int
+	open let percentDone: Float // 0.0 > 1
+	open let downloadDir: String
+	open let name: String
+	open let queuePosition: Int
 
-	public let peersGettingFromUs: Int
-	public let peersSendingToUs: Int
-	public let peersConnected: Int
+	open let peersGettingFromUs: Int
+	open let peersSendingToUs: Int
+	open let peersConnected: Int
 
-	public let status: TransmissionTorrentStatus
-	public let totalSize: Int64 // byte size
+	open let status: TransmissionTorrentStatus
+	open let totalSize: Int64 // byte size
 
-	public let addedDate: NSDate
-	public let rateDownload: Int64 // byte size
-	public let rateUpload: Int64 // byte size
-	public let isFinished: Bool // Downloading & Seeding
-	public let eta: NSTimeInterval
+	open let addedDate: Date
+	open let rateDownload: Int64 // byte size
+	open let rateUpload: Int64 // byte size
+	open let isFinished: Bool // Downloading & Seeding
+	open let eta: TimeInterval
 
 
 	init?(data: [String: AnyObject]) {
@@ -65,14 +65,14 @@ public class TransmissionTorrent: Hashable {
 			print(data["status"])
 			fatalError("Unknow status please report to the autor")
 		}
-		totalSize = Int64(data["totalSize"] as! Int) ?? 0
-		eta = data["eta"] as! NSTimeInterval
-		rateDownload = Int64(data["rateDownload"] as! Int) ?? 0
-		rateUpload = Int64(data["rateUpload"] as! Int) ?? 0
-		addedDate = NSDate(timeIntervalSince1970: data["addedDate"] as! Double)
+		totalSize = Int64(data["totalSize"] as! Int)
+		eta = data["eta"] as! TimeInterval
+		rateDownload = Int64(data["rateDownload"] as! Int)
+		rateUpload = Int64(data["rateUpload"] as! Int)
+		addedDate = Date(timeIntervalSince1970: data["addedDate"] as! Double)
 	}
 
-	public var hashValue: Int {
+	open var hashValue: Int {
 		return id
 	}
 }

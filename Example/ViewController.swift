@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
 	let client: Transmission = Transmission(host: "localhost", username: "admin", password: "admin")
 	var session: TransmissionSession?
-	var sessionTimer: NSTimer!
+	var sessionTimer: Timer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,42 +27,42 @@ class ViewController: UIViewController {
         tableView.dataSource = datasource
 
         // schedule polling
-        sessionTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(ViewController.pollSession), userInfo: nil, repeats: true)
-        sessionTimer.fireDate = NSDate.distantFuture()
+        sessionTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(ViewController.pollSession), userInfo: nil, repeats: true)
+        sessionTimer.fireDate = Date.distantFuture
     }
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
         (tableView.dataSource as? TransmissionTableViewDataSource)?.polling = true
-        sessionTimer.fireDate = NSDate()
+        sessionTimer.fireDate = Date()
 	}
 
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         (tableView.dataSource as? TransmissionTableViewDataSource)?.polling = false
-        sessionTimer.fireDate = NSDate.distantFuture()
+        sessionTimer.fireDate = Date.distantFuture
 	}
 
 	func pollSession() {
-		client.sessionGet { [weak self] result, error in
+		let _ = client.sessionGet { [weak self] result, error in
 			if let session = result {
 				self?.session = session
-                self?.slowModeButton?.tintColor = session.altSpeedEnabled ? UIColor.redColor() : UIColor.blueColor()
+                self?.slowModeButton?.tintColor = session.altSpeedEnabled ? UIColor.red : UIColor.blue
 			}
 		}
 	}
 
-	@IBAction func toggleSlowAction(sender: AnyObject) {
-		client.sessionSet(["alt-speed-enabled": !session!.altSpeedEnabled]) { (result, _) in
+	@IBAction func toggleSlowAction(_ sender: AnyObject) {
+		let _ = client.sessionSet(["alt-speed-enabled": !session!.altSpeedEnabled]) { result, _ in
 			print(result)
 		}
 	}
 
-	@IBAction func downloadAction(sender: AnyObject) {
+	@IBAction func downloadAction(_ sender: AnyObject) {
 		let debianMagnetLink = "magnet:?xt=urn:btih:CD8158937344B2A066446BED7E7A0C45214F1245&dn=debian+8+2+0+amd64+dvd+1+iso&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337"
-		client.loadMagnetLink(debianMagnetLink) { success, error in
+		let _ = client.loadMagnetLink(debianMagnetLink) { success, error in
 			print(success)
 		}
 	}
@@ -70,40 +70,40 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate {
 
-    func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         (tableView.dataSource as? TransmissionTableViewDataSource)?.polling = false
-        sessionTimer.fireDate = NSDate.distantFuture()
+        sessionTimer.fireDate = Date.distantFuture
 	}
 
-    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
         (tableView.dataSource as? TransmissionTableViewDataSource)?.polling = true
-        sessionTimer.fireDate = NSDate()
+        sessionTimer.fireDate = Date()
 	}
 
-
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        guard let datasource = (tableView.dataSource as? TransmissionTableViewDataSource), torrent = (datasource.tableView(tableView, cellForRowAtIndexPath: indexPath) as? CustomCell)?.torrent else {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard let datasource = (tableView.dataSource as? TransmissionTableViewDataSource),
+            let torrent = (datasource.tableView(tableView, cellForRowAt: indexPath) as? CustomCell)?.torrent else {
             return nil
         }
 		var actions = [
-			UITableViewRowAction(style: .Destructive, title: "Delete", handler: { [weak self] _, _ in
-				self?.client.removeTorrent([torrent], trashData: true) { result, error in
+			UITableViewRowAction(style: .destructive, title: "Delete", handler: { [weak self] _, _ in
+				let _ = self?.client.removeTorrent([torrent], trashData: true) { result, error in
 					if (result as? Bool) == true {
-                        datasource.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                        datasource.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .automatic)
 						self?.tableView.setEditing(false, animated: true)
 					}
 				}
 			})
 		]
 		if torrent.status == .paused {
-			actions.append(UITableViewRowAction(style: .Normal, title: "Resume", handler: { (_, _) in
-				self.client.resumeTorrent([torrent], completion: { _, _ in
+			actions.append(UITableViewRowAction(style: .normal, title: "Resume", handler: { (_, _) in
+				let _ = self.client.resumeTorrent([torrent], completion: { _, _ in
 					tableView.setEditing(false, animated: true)
 				})
 			}))
 		} else if torrent.status == .downloading || torrent.status == .seeding {
-			actions.append(UITableViewRowAction(style: .Normal, title: "Pause", handler: { (_, _) in
-                self.client.pauseTorrent([torrent], completion: { _, _ in
+			actions.append(UITableViewRowAction(style: .normal, title: "Pause", handler: { (_, _) in
+                let _ = self.client.pauseTorrent([torrent], completion: { _, _ in
                     tableView.setEditing(false, animated: true)
 				})
 			}))
@@ -113,7 +113,7 @@ extension ViewController: UITableViewDelegate {
 }
 
 class CustomCell: UITableViewCell, TransmissionTableViewCell {
-    private func timeToHuman(time: NSTimeInterval) -> String {
+    fileprivate func timeToHuman(_ time: TimeInterval) -> String {
         let interval: Int = Int(time)
         let day = (interval / (3600 * 24)) % (3600*24)
         let hrs = ((interval - (day * 3600 * 24)) / 3600) % 3600
@@ -123,14 +123,14 @@ class CustomCell: UITableViewCell, TransmissionTableViewCell {
 
     var torrent: TransmissionTorrent! {
         didSet {
-            let bc = NSByteCountFormatter()
-            bc.countStyle = .File
+            let bc = ByteCountFormatter()
+            bc.countStyle = .file
             (viewWithTag(1) as? UILabel)?.text = torrent.name
             (viewWithTag(4) as? UIProgressView)?.progress = torrent.percentDone
-            (viewWithTag(2) as? UILabel)?.text = String(format: "%@ of %@ (%.2f%%)", bc.stringFromByteCount(Int64(Float(torrent.totalSize) * torrent.percentDone)), bc.stringFromByteCount(torrent.totalSize), torrent.percentDone * 100)
+            (viewWithTag(2) as? UILabel)?.text = String(format: "%@ of %@ (%.2f%%)", bc.string(fromByteCount: Int64(Float(torrent.totalSize) * torrent.percentDone)), bc.string(fromByteCount: torrent.totalSize), torrent.percentDone * 100)
             if torrent.status == .downloading {
-                (viewWithTag(2) as? UILabel)?.text?.appendContentsOf(String(format: " - %@ remaining", timeToHuman(torrent.eta)))
-                (viewWithTag(3) as? UILabel)?.text = String(format: "Downloading from %d of %d peers %@/s", torrent.peersSendingToUs, torrent.peersConnected, bc.stringFromByteCount(torrent.rateDownload))
+                (viewWithTag(2) as? UILabel)?.text?.append(String(format: " - %@ remaining", timeToHuman(torrent.eta)))
+                (viewWithTag(3) as? UILabel)?.text = String(format: "Downloading from %d of %d peers %@/s", torrent.peersSendingToUs, torrent.peersConnected, bc.string(fromByteCount: torrent.rateDownload))
             } else if torrent.status == .paused {
                 (viewWithTag(3) as? UILabel)?.text = "Paused"
             }

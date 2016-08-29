@@ -205,8 +205,8 @@
 				607FACD21AFB9204008FA782 /* Example */,
 				174E4FCE1D4751E900EF2FC7 /* Source */,
 				607FACD11AFB9204008FA782 /* Products */,
-				174E50161D4752EA00EF2FC7 /* Alamofire.xcodeproj */,
 				1714EF6F1D47590700E1D056 /* Frameworks */,
+				174E50161D4752EA00EF2FC7 /* Alamofire.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};

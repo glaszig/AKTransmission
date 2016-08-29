@@ -12,22 +12,22 @@ public protocol TransmissionTableViewCell: class {
     var torrent: TransmissionTorrent! { get set }
 }
 
-public class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
+open class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
 
-    public var pollInterval: NSTimeInterval = 2
-    public var cellIdentifier: String = "cell"
-    var torrentTimer: NSTimer!
+    open var pollInterval: TimeInterval = 2
+    open var cellIdentifier: String = "cell"
+    var torrentTimer: Timer!
     var torrents: [TransmissionTorrent] = []
 
     weak var theTableview: UITableView!
     weak var client: Transmission!
 
-    public var polling: Bool = false {
+    open var polling: Bool = false {
         didSet {
             if polling {
-                torrentTimer.fireDate = NSDate()
+                torrentTimer.fireDate = Date()
             } else {
-                torrentTimer.fireDate = NSDate.distantFuture()
+                torrentTimer.fireDate = Date.distantFuture
             }
         }
     }
@@ -36,46 +36,46 @@ public class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
         self.client = client
         super.init()
 
-        torrentTimer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(TransmissionTableViewDataSource.pollTorrent), userInfo: nil, repeats: true)
+        torrentTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(TransmissionTableViewDataSource.pollTorrent), userInfo: nil, repeats: true)
         polling = false
     }
 
-    public func deleteRowsAtIndexPaths(indexPaths: [NSIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
+    open func deleteRowsAtIndexPaths(_ indexPaths: [IndexPath], withRowAnimation animation: UITableViewRowAnimation) {
         // make sure its descending
-        indexPaths.reverse().forEach {
-            torrents.removeAtIndex($0.row)
+        indexPaths.reversed().forEach {
+            torrents.remove(at: ($0 as NSIndexPath).row)
         }
-        theTableview.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        theTableview.deleteRows(at: indexPaths, with: .automatic)
     }
 
-    public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         theTableview = tableView
         return torrents.count
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         theTableview = tableView
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as? TransmissionTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TransmissionTableViewCell else {
             fatalError("Need to implement TransmissionTableViewCell")
         }
-        cell.torrent = torrents[indexPath.row]
+        cell.torrent = torrents[(indexPath as NSIndexPath).row]
         return cell as! UITableViewCell
     }
 
     func pollTorrent() {
-        client.torrentGet { [weak self] result, err in
-            guard let ss = self, torrents = result else {
+        let _ = client.torrentGet { [weak self] result, err in
+            guard let ss = self, let torrents = result else {
                 return
             }
             var updateIndex: [Int] = []
             var countInsert = 0
 
             torrents.forEach { torrent in
-                if let index = ss.torrents.indexOf(torrent) {
+                if let index = ss.torrents.index(of: torrent) {
                     ss.torrents[index] = torrent
                     updateIndex.append(index)
                 } else {
@@ -87,26 +87,26 @@ public class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
             let deletedIndexes = ss.torrents.filter {
                 !torrents.contains($0)
             } .flatMap {
-                self?.torrents.indexOf($0)
+                self?.torrents.index(of: $0)
             }
 
             // Insert rows
             if countInsert > 0 {
-                let indexPaths: [NSIndexPath] = (0..<countInsert).flatMap {
-                    NSIndexPath(forRow: ss.theTableview.numberOfRowsInSection(0) + $0, inSection: 0)
+                let indexPaths: [IndexPath] = (0..<countInsert).flatMap {
+                    IndexPath(row: ss.theTableview.numberOfRows(inSection: 0) + $0, section: 0)
                 }
-                ss.theTableview.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+                ss.theTableview.insertRows(at: indexPaths, with: .automatic)
             }
             // Update rows
             if updateIndex.count > 0 {
-                ss.theTableview.reloadRowsAtIndexPaths(updateIndex.flatMap({NSIndexPath(forRow: $0, inSection: 0)}), withRowAnimation: .None)
+                ss.theTableview.reloadRows(at: updateIndex.flatMap({IndexPath(row: $0, section: 0)}), with: .none)
             }
             // Delete rows
             if deletedIndexes.count > 0 {
                 deletedIndexes.forEach {
-                    ss.torrents.removeAtIndex($0)
+                    ss.torrents.remove(at: $0)
                 }
-                ss.theTableview.deleteRowsAtIndexPaths(deletedIndexes.flatMap({NSIndexPath(forRow: $0, inSection: 0)}), withRowAnimation: .None)
+                ss.theTableview.deleteRows(at: deletedIndexes.flatMap({IndexPath(row: $0, section: 0)}), with: .none)
             }
 //            print("DEL : \(deletedIndexes.count)")
 //            print("INS : \(countInsert)")

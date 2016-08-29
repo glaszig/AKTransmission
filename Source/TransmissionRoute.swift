@@ -13,7 +13,7 @@ enum TransmissionRoute: URLRequestConvertible {
 
 	case magnetLink(String)
 	case sessionGet
-	case sessionSet([String: AnyObject])
+	case sessionSet([String: Any])
 	case sessionStats
 	case torrentGet
 	case torrentStop([Int])
@@ -24,7 +24,7 @@ enum TransmissionRoute: URLRequestConvertible {
 		return "POST"
 	}
 
-	var params: [String: AnyObject] {
+	var params: [String: Any] {
 
 		switch self {
 		case .sessionGet:
@@ -87,10 +87,10 @@ enum TransmissionRoute: URLRequestConvertible {
 		}
 	}
 
-	var URLRequest: NSMutableURLRequest {
-		let request = NSMutableURLRequest(URL: NSURL(string: "http://dummyhost.com/transmission/rpc")!)
-		request.HTTPMethod = HTTPMethod
-        return Alamofire.ParameterEncoding.JSON.encode(request, parameters: params).0
+	var urlRequest: URLRequest {
+		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
+		request.httpMethod = HTTPMethod
+        return Alamofire.ParameterEncoding.json.encode(request, parameters: params).0
 	}
 
 }
