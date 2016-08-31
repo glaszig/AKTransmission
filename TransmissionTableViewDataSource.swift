@@ -7,22 +7,23 @@
 //
 
 import UIKit
+import Alamofire
 
 public protocol TransmissionTableViewCell: class {
     var torrent: TransmissionTorrent! { get set }
 }
 
-open class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
+public class TransmissionTableViewDataSource: NSObject {
 
-    open var pollInterval: TimeInterval = 2
-    open var cellIdentifier: String = "cell"
+    public var pollInterval: TimeInterval = 2
+    public var cellIdentifier: String = "cell"
     var torrentTimer: Timer!
     var torrents: [TransmissionTorrent] = []
 
     weak var theTableview: UITableView!
     weak var client: Transmission!
 
-    open var polling: Bool = false {
+    public var polling: Bool = false {
         didSet {
             if polling {
                 torrentTimer.fireDate = Date()
@@ -40,7 +41,7 @@ open class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
         polling = false
     }
 
-    open func deleteRowsAtIndexPaths(_ indexPaths: [IndexPath], withRowAnimation animation: UITableViewRowAnimation) {
+    public func deleteRowsAtIndexPaths(_ indexPaths: [IndexPath], withRowAnimation animation: UITableViewRowAnimation) {
         // make sure its descending
         indexPaths.reversed().forEach {
             torrents.remove(at: ($0 as NSIndexPath).row)
@@ -48,22 +49,32 @@ open class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
         theTableview.deleteRows(at: indexPaths, with: .automatic)
     }
 
-    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+    public func torrent(at indexPath: IndexPath) -> TransmissionTorrent? {
+        return torrents[indexPath.row]
     }
 
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        theTableview = tableView
-        return torrents.count
-    }
-
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        theTableview = tableView
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TransmissionTableViewCell else {
-            fatalError("Need to implement TransmissionTableViewCell")
+    public func pauseTorrent(at indexPath: IndexPath) -> Request? {
+        return client.pauseTorrent([torrents[indexPath.row]]) { result, error in
+            return
         }
-        cell.torrent = torrents[(indexPath as NSIndexPath).row]
-        return cell as! UITableViewCell
+    }
+
+    public func resumeTorrent(at indexPath: IndexPath) -> Request? {
+        return client.resumeTorrent([torrents[indexPath.row]]) { result, error in
+            return
+        }
+    }
+
+    public func pauseAll() -> Request {
+        return client.pauseTorrent(torrents) { result, error in
+            return
+        }
+    }
+
+    public func resumeAll() -> Request {
+        return client.resumeTorrent(torrents) { result, error in
+            return
+        }
     }
 
     func pollTorrent() {
@@ -121,5 +132,25 @@ open class TransmissionTableViewDataSource: NSObject, UITableViewDataSource {
 
     deinit {
         torrentTimer.invalidate()
+    }
+}
+
+extension TransmissionTableViewDataSource: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        theTableview = tableView
+        return torrents.count
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        theTableview = tableView
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TransmissionTableViewCell else {
+            fatalError("Need to implement TransmissionTableViewCell")
+        }
+        cell.torrent = torrents[(indexPath as NSIndexPath).row]
+        return cell as! UITableViewCell
     }
 }
