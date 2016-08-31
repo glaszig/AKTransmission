@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class TransmissionTableViewCell: UITableViewCell {
-    @IBOutlet public weak var progressView: UIProgressView?
-    @IBOutlet public weak var torrentName: UILabel?
-    @IBOutlet public weak var torrentInfo: UILabel?
-    @IBOutlet public weak var torrentSpeed: UILabel?
+open class TransmissionTableViewCell: UITableViewCell {
+    @IBOutlet open weak var progressView: UIProgressView?
+    @IBOutlet open weak var torrentName: UILabel?
+    @IBOutlet open weak var torrentInfo: UILabel?
+    @IBOutlet open weak var torrentSpeed: UILabel?
 
     private func timeToHuman(_ time: TimeInterval) -> String {
         let interval: Int = Int(time)
