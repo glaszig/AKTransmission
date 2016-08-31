@@ -9,8 +9,36 @@
 import UIKit
 import Alamofire
 
-public protocol TransmissionTableViewCell: class {
-    var torrent: TransmissionTorrent! { get set }
+open class TransmissionTableViewCell: UITableViewCell {
+    @IBOutlet public weak var progressView: UIProgressView?
+    @IBOutlet public weak var torrentName: UILabel?
+    @IBOutlet public weak var torrentInfo: UILabel?
+    @IBOutlet public weak var torrentSpeed: UILabel?
+
+    private func timeToHuman(_ time: TimeInterval) -> String {
+        let interval: Int = Int(time)
+        let day = (interval / (3600 * 24)) % (3600*24)
+        let hrs = ((interval - (day * 3600 * 24)) / 3600) % 3600
+        let min = (interval - (hrs * 3600) / 60) % 60
+        return String(format: "%2ldd %dh%dm", day, hrs, min)
+    }
+
+    open var torrent: TransmissionTorrent! {
+        didSet {
+            progressView?.progress = torrent.percentDone
+
+            let bc = ByteCountFormatter()
+            bc.countStyle = .file
+            torrentName?.text = torrent.name
+            torrentInfo?.text = String(format: "%@ of %@ (%.2f%%)", bc.string(fromByteCount: Int64(Float(torrent.totalSize) * torrent.percentDone)), bc.string(fromByteCount: torrent.totalSize), torrent.percentDone * 100)
+            if torrent.status == .downloading {
+                torrentInfo?.text?.append(String(format: " - %@ remaining", timeToHuman(torrent.eta)))
+                torrentSpeed?.text = String(format: "Downloading from %d of %d peers %@/s", torrent.peersSendingToUs, torrent.peersConnected, bc.string(fromByteCount: torrent.rateDownload))
+            } else if torrent.status == .paused {
+                torrentSpeed?.text = "Paused"
+            }
+        }
+    }
 }
 
 public class TransmissionTableViewDataSource: NSObject {
@@ -60,20 +88,20 @@ public class TransmissionTableViewDataSource: NSObject {
     }
 
     public func resumeTorrent(at indexPath: IndexPath) -> Request? {
-        return client.resumeTorrent([torrents[indexPath.row]]) { result, error in
-            return
+        return client.resumeTorrent([torrents[indexPath.row]]) { [weak self] result, error in
+            self?.torrentTimer.fire()
         }
     }
 
     public func pauseAll() -> Request {
-        return client.pauseTorrent(torrents) { result, error in
-            return
+        return client.pauseTorrent(torrents) { [weak self] result, error in
+            self?.torrentTimer.fire()
         }
     }
 
     public func resumeAll() -> Request {
-        return client.resumeTorrent(torrents) { result, error in
-            return
+        return client.resumeTorrent(torrents) { [weak self] result, error in
+            self?.torrentTimer.fire()
         }
     }
 

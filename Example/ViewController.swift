@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var slowModeButton: UIBarButtonItem?
 
-    let client: Transmission = Transmission(host: "nas.local", username: "admin", password: "admin", port: 8181)
+    let client: Transmission = Transmission(host: "localhost", username: "admin", password: "admin", port: 9091)
 	var session: TransmissionSession?
 	var sessionTimer: Timer!
 
@@ -69,8 +69,9 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        guard let datasource = (tableView.dataSource as? TransmissionTableViewDataSource), let torrent = (datasource.tableView(tableView, cellForRowAtIndexPath: indexPath) as? CustomCell)?.torrent else {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard let datasource = (tableView.dataSource as? TransmissionTableViewDataSource),
+            let torrent = datasource.torrent(at: indexPath) else {
             return nil
         }
 		var actions = [
@@ -98,30 +99,4 @@ extension ViewController: UITableViewDelegate {
 		}
 		return actions
 	}
-}
-
-class CustomCell: UITableViewCell, TransmissionTableViewCell {
-    fileprivate func timeToHuman(_ time: TimeInterval) -> String {
-        let interval: Int = Int(time)
-        let day = (interval / (3600 * 24)) % (3600*24)
-        let hrs = ((interval - (day * 3600 * 24)) / 3600) % 3600
-        let min = (interval - (hrs * 3600) / 60) % 60
-        return String(format: "%2ldd %dh%dm", day, hrs, min)
-    }
-
-    var torrent: TransmissionTorrent! {
-        didSet {
-            let bc = ByteCountFormatter()
-            bc.countStyle = .file
-            (viewWithTag(1) as? UILabel)?.text = torrent.name
-            (viewWithTag(4) as? UIProgressView)?.progress = torrent.percentDone
-            (viewWithTag(2) as? UILabel)?.text = String(format: "%@ of %@ (%.2f%%)", bc.string(fromByteCount: Int64(Float(torrent.totalSize) * torrent.percentDone)), bc.string(fromByteCount: torrent.totalSize), torrent.percentDone * 100)
-            if torrent.status == .downloading {
-                (viewWithTag(2) as? UILabel)?.text?.append(String(format: " - %@ remaining", timeToHuman(torrent.eta)))
-                (viewWithTag(3) as? UILabel)?.text = String(format: "Downloading from %d of %d peers %@/s", torrent.peersSendingToUs, torrent.peersConnected, bc.string(fromByteCount: torrent.rateDownload))
-            } else if torrent.status == .paused {
-                (viewWithTag(3) as? UILabel)?.text = "Paused"
-            }
-        }
-    }
 }
