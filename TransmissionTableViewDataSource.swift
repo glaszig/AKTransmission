@@ -29,13 +29,35 @@ open class TransmissionTableViewCell: UITableViewCell {
 
             let bc = ByteCountFormatter()
             bc.countStyle = .file
+            bc.allowsNonnumericFormatting = false
+            bc.allowedUnits = [.useKB, .useMB, .useGB]
+
             torrentName?.text = torrent.name
             torrentInfo?.text = String(format: "%@ of %@ (%.2f%%)", bc.string(fromByteCount: Int64(Float(torrent.totalSize) * torrent.percentDone)), bc.string(fromByteCount: torrent.totalSize), torrent.percentDone * 100)
-            if torrent.status == .downloading {
+            if torrent.isFinished {
+                progressView?.progressTintColor = .green
+                torrentSpeed?.text = "Seeding complete"
+            } else if torrent.status == .seeding {
+                progressView?.progressTintColor = .green
+                torrentSpeed?.text = String(format: "Seeding to %d of %d peers - UL: %@/s", torrent.peersGettingFromUs, torrent.peersConnected, bc.string(fromByteCount: torrent.rateUpload))
+                torrentInfo?.text = String(format: "%@, uploaded %@",
+                                            bc.string(fromByteCount: torrent.totalSize),
+                                            bc.string(fromByteCount: torrent.uploadedEver)
+                )
+            } else if torrent.status == .downloading {
+                progressView?.progressTintColor = .blue
+                progressView?.trackTintColor = .lightGray
                 torrentInfo?.text?.append(String(format: " - %@ remaining", timeToHuman(torrent.eta)))
-                torrentSpeed?.text = String(format: "Downloading from %d of %d peers %@/s", torrent.peersSendingToUs, torrent.peersConnected, bc.string(fromByteCount: torrent.rateDownload))
+                torrentSpeed?.text = String(format: "Downloading from %d of %d peers - DL: %@/s, UL: %@/s",
+                                            torrent.peersSendingToUs,
+                                            torrent.peersConnected,
+                                            bc.string(fromByteCount: torrent.rateDownload),
+                                            bc.string(fromByteCount: torrent.rateUpload)
+                )
             } else if torrent.status == .paused {
                 torrentSpeed?.text = "Paused"
+                progressView?.progressTintColor = .gray
+                progressView?.trackTintColor = .white
             }
         }
     }
@@ -179,6 +201,6 @@ extension TransmissionTableViewDataSource: UITableViewDataSource {
             fatalError("Need to implement TransmissionTableViewCell")
         }
         cell.torrent = torrents[(indexPath as NSIndexPath).row]
-        return cell as! UITableViewCell
+        return cell
     }
 }

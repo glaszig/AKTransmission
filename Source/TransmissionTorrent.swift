@@ -42,6 +42,7 @@ open class TransmissionTorrent: Hashable {
 	open let rateUpload: Int64 // byte size
 	open let isFinished: Bool // Downloading & Seeding
 	open let eta: TimeInterval
+    open let uploadedEver: Int64
 
 
 	init?(data: [String: AnyObject]) {
@@ -62,13 +63,13 @@ open class TransmissionTorrent: Hashable {
             let stt = TransmissionTorrentStatus(rawValue: c) {
 			status = stt
 		} else {
-			print(data["status"])
-			fatalError("Unknow status please report to the autor")
+			fatalError("Unknow status \(data["status"]) please report to the autor")
 		}
 		totalSize = Int64(data["totalSize"] as! Int)
 		eta = data["eta"] as! TimeInterval
-		rateDownload = Int64(data["rateDownload"] as! Int)
-		rateUpload = Int64(data["rateUpload"] as! Int)
+        rateDownload = Int64(data["rateDownload"] as! Int)
+        rateUpload = Int64(data["rateUpload"] as! Int)
+        uploadedEver = Int64(data["uploadedEver"] as! Int)
 		addedDate = Date(timeIntervalSince1970: data["addedDate"] as! Double)
 	}
 
