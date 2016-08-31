@@ -23,6 +23,8 @@
 		177967221D7425CD0011E00E /* Transmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF21D47524900EF2FC7 /* Transmission.swift */; };
 		177967231D7425E00011E00E /* TransmissionRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF31D47524900EF2FC7 /* TransmissionRoute.swift */; };
 		177967241D7425EB0011E00E /* TransmissionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF41D47524900EF2FC7 /* TransmissionSession.swift */; };
+		17F6A2811D77267B0003643C /* TransmissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */; };
+		17F6A2821D77267B0003643C /* TransmissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -130,6 +132,7 @@
 		174E4FFF1D4752A600EF2FC7 /* AKTransmission.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AKTransmission.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		174E50161D4752EA00EF2FC7 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		174E503A1D47554500EF2FC7 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-tvOS.plist"; path = "../Source/Info-tvOS.plist"; sourceTree = "<group>"; };
+		17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionTableViewCell.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Example iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 				174E4FF31D47524900EF2FC7 /* TransmissionRoute.swift */,
 				174E4FF41D47524900EF2FC7 /* TransmissionSession.swift */,
 				174E4FF51D47524900EF2FC7 /* TransmissionTorrent.swift */,
+				17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = Source;
@@ -464,6 +468,7 @@
 				174E4FF91D47524900EF2FC7 /* TransmissionTorrent.swift in Sources */,
 				174E4FF81D47524900EF2FC7 /* TransmissionSession.swift in Sources */,
 				174E4FF61D47524900EF2FC7 /* Transmission.swift in Sources */,
+				17F6A2811D77267B0003643C /* TransmissionTableViewCell.swift in Sources */,
 				171A5E551D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift in Sources */,
 				174E4FF71D47524900EF2FC7 /* TransmissionRoute.swift in Sources */,
 			);
@@ -476,6 +481,7 @@
 				177967221D7425CD0011E00E /* Transmission.swift in Sources */,
 				177967241D7425EB0011E00E /* TransmissionSession.swift in Sources */,
 				1779671B1D7425950011E00E /* TransmissionTorrent.swift in Sources */,
+				17F6A2821D77267B0003643C /* TransmissionTableViewCell.swift in Sources */,
 				171A5E561D644B4B00ADFF6A /* TransmissionTableViewDataSource.swift in Sources */,
 				177967231D7425E00011E00E /* TransmissionRoute.swift in Sources */,
 			);
