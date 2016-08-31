@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var slowModeButton: UIBarButtonItem?
 
-	let client: Transmission = Transmission(host: "localhost", username: "admin", password: "admin")
+    let client: Transmission = Transmission(host: "nas.local", username: "admin", password: "admin", port: 8181)
 	var session: TransmissionSession?
 	var sessionTimer: Timer!
 
@@ -69,20 +69,8 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        (tableView.dataSource as? TransmissionTableViewDataSource)?.polling = false
-        sessionTimer.fireDate = Date.distantFuture
-	}
-
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        (tableView.dataSource as? TransmissionTableViewDataSource)?.polling = true
-        sessionTimer.fireDate = Date()
-	}
-
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        guard let datasource = (tableView.dataSource as? TransmissionTableViewDataSource),
-            let torrent = (datasource.tableView(tableView, cellForRowAt: indexPath) as? CustomCell)?.torrent else {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        guard let datasource = (tableView.dataSource as? TransmissionTableViewDataSource), let torrent = (datasource.tableView(tableView, cellForRowAtIndexPath: indexPath) as? CustomCell)?.torrent else {
             return nil
         }
 		var actions = [
