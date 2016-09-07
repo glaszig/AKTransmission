@@ -61,7 +61,7 @@ class ViewController: UIViewController {
 	}
 
 	@IBAction func downloadAction(_ sender: AnyObject) {
-		let debianMagnetLink = "magnet:?xt=urn:btih:CD8158937344B2A066446BED7E7A0C45214F1245&dn=debian+8+2+0+amd64+dvd+1+iso&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337"
+		let debianMagnetLink = "magnet:?xt=urn:btih:CD8158937344B2A066446BED7E7A0C45214F1245&dn=debian+8+2+0+amd64+dvd+1+iso&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" // swiftlint:disable:this line_length
 		let _ = client.loadMagnetLink(debianMagnetLink) { success, error in
 			print(success)
 		}

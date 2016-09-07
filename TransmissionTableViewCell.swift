@@ -32,7 +32,9 @@ open class TransmissionTableViewCell: UITableViewCell {
             bc.allowedUnits = [.useKB, .useMB, .useGB]
 
             torrentName?.text = torrent.name
-            torrentInfo?.text = String(format: "%@ of %@ (%.2f%%)", bc.string(fromByteCount: Int64(Float(torrent.totalSize) * torrent.percentDone)), bc.string(fromByteCount: torrent.totalSize), torrent.percentDone * 100)
+            torrentInfo?.text = String(format: "%@ of %@ (%.2f%%)",
+                                       bc.string(fromByteCount: Int64(Float(torrent.totalSize) * torrent.percentDone)),
+                                       bc.string(fromByteCount: torrent.totalSize), torrent.percentDone * 100)
             if torrent.isFinished {
                 progressView?.progressTintColor = .green
                 torrentSpeed?.text = "Seeding complete"
@@ -46,7 +48,10 @@ open class TransmissionTableViewCell: UITableViewCell {
             } else if torrent.status == .downloading {
                 progressView?.progressTintColor = .blue
                 progressView?.trackTintColor = .lightGray
-                torrentInfo?.text?.append(String(format: " - %@ remaining", timeToHuman(torrent.eta)))
+                torrentInfo?.text?.append(
+                    String(format: " - %@ remaining",
+                                                 timeToHuman(torrent.eta))
+                )
                 torrentSpeed?.text = String(format: "Downloading from %d of %d peers - DL: %@/s, UL: %@/s",
                                             torrent.peersSendingToUs,
                                             torrent.peersConnected,

@@ -51,26 +51,26 @@ open class TransmissionTorrent: Hashable {
 		}
 
 		id = identifier
-		name = data["name"] as! String
-		downloadDir = data["downloadDir"] as! String
-		percentDone = data["percentDone"] as! Float
-		queuePosition = data["queuePosition"] as! Int
-		peersSendingToUs = data["peersSendingToUs"] as! Int
-		peersGettingFromUs = data["peersGettingFromUs"] as! Int
-		peersConnected = data["peersConnected"] as! Int
-		isFinished = data["isFinished"] as! Bool
+		name = data["name"] as? String ?? ""
+		downloadDir = data["downloadDir"] as? String ?? ""
+		percentDone = data["percentDone"] as? Float ?? 0
+		queuePosition = data["queuePosition"] as? Int ?? 0
+		peersSendingToUs = data["peersSendingToUs"] as? Int ?? 0
+		peersGettingFromUs = data["peersGettingFromUs"] as? Int ?? 0
+		peersConnected = data["peersConnected"] as? Int ?? 0
+        isFinished = data["isFinished"] as? Bool ?? false
 		if let c = data["status"] as? Int,
             let stt = TransmissionTorrentStatus(rawValue: c) {
 			status = stt
 		} else {
 			fatalError("Unknow status \(data["status"]) please report to the autor")
 		}
-		totalSize = Int64(data["totalSize"] as! Int)
-		eta = data["eta"] as! TimeInterval
-        rateDownload = Int64(data["rateDownload"] as! Int)
-        rateUpload = Int64(data["rateUpload"] as! Int)
-        uploadedEver = Int64(data["uploadedEver"] as! Int)
-		addedDate = Date(timeIntervalSince1970: data["addedDate"] as! Double)
+		totalSize = Int64(data["totalSize"] as? Int ?? 0)
+        eta = data["eta"] as? TimeInterval ?? 0
+        rateDownload = Int64(data["rateDownload"] as? Int ?? 0)
+        rateUpload = Int64(data["rateUpload"] as? Int ?? 0)
+        uploadedEver = Int64(data["uploadedEver"] as? Int ?? 0)
+		addedDate = Date(timeIntervalSince1970: data["addedDate"] as? Double ?? 0)
 	}
 
 	open var hashValue: Int {

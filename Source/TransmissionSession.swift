@@ -26,13 +26,13 @@ open class TransmissionSession {
 			return nil
 		}
 		version = ver
-		altSpeedUp = data["alt-speed-up"] as! Int
-		altSpeedDown = data["alt-speed-down"] as! Int
-		altSpeedEnabled = data["alt-speed-enabled"] as! Bool
-		speedLimitDown = data["speed-limit-down"] as! Int
-		speedLimitUp = data["speed-limit-up"] as! Int
-		speedLimitUpEnabled = data["speed-limit-up-enabled"] as! Bool
-		speedLimitDownEnabled = data["speed-limit-down-enabled"] as! Bool
+		altSpeedUp = data["alt-speed-up"] as? Int ?? 0
+		altSpeedDown = data["alt-speed-down"] as? Int ?? 0
+		altSpeedEnabled = data["alt-speed-enabled"] as? Bool ?? false
+		speedLimitDown = data["speed-limit-down"] as? Int ?? 0
+		speedLimitUp = data["speed-limit-up"] as? Int ?? 0
+		speedLimitUpEnabled = data["speed-limit-up-enabled"] as? Bool ?? false
+		speedLimitDownEnabled = data["speed-limit-down-enabled"] as? Bool ?? false
 	}
 
 }
