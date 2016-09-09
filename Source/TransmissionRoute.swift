@@ -90,7 +90,11 @@ enum TransmissionRoute: URLRequestConvertible {
 	var urlRequest: URLRequest {
 		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
 		request.httpMethod = HTTPMethod
-        return Alamofire.ParameterEncoding.json.encode(request, parameters: params).0
+        do {
+            return try JSONEncoding.default.encode(request, with: params)
+        } catch {
+            return request
+        }
 	}
 
 }

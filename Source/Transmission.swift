@@ -56,7 +56,8 @@ open class Transmission {
 			self.sessionId = sid
 			return ResponseStatus.retry
 		} else if let res = response.result.value as? [String: AnyObject],
-            let result = res["result"] as? String, let args = res["arguments"] as? [String: AnyObject],
+            let result = res["result"] as? String,
+            let args = res["arguments"] as? [String: AnyObject],
             result == "success" {
 			return .success(args)
 		} else {
@@ -64,7 +65,7 @@ open class Transmission {
 		}
 	}
 
-	open func loadMagnetLink(_ magnet: String, success: ((_ success: Bool, _ error: Error?) -> Void)) -> Request {
+	open func loadMagnetLink(_ magnet: String, success: @escaping ((_ success: Bool, _ error: Error?) -> Void)) -> Request {
 		let route = TransmissionRoute.magnetLink(magnet)
 
 		return Alamofire.request(request(route))
@@ -102,7 +103,7 @@ open class Transmission {
 		}
 	}
 
-	open func sessionSet(_ arguments: [String: Any], completion: completionHandler) -> Request {
+	open func sessionSet(_ arguments: [String: Any], completion: @escaping completionHandler) -> Request {
 		return Alamofire.request(request(TransmissionRoute.sessionSet(arguments)))
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
@@ -120,7 +121,7 @@ open class Transmission {
 		}
 	}
 
-	open func pauseTorrent(_ torrents: [TransmissionTorrent], completion: completionHandler) -> Request {
+	open func pauseTorrent(_ torrents: [TransmissionTorrent], completion: @escaping completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
@@ -141,7 +142,7 @@ open class Transmission {
 		}
 	}
 
-	open func resumeTorrent(_ torrents: [TransmissionTorrent], completion: completionHandler) -> Request {
+	open func resumeTorrent(_ torrents: [TransmissionTorrent], completion: @escaping completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
@@ -162,7 +163,7 @@ open class Transmission {
 		}
 	}
 
-	open func removeTorrent(_ torrents: [TransmissionTorrent], trashData: Bool, completion: completionHandler) -> Request {
+	open func removeTorrent(_ torrents: [TransmissionTorrent], trashData: Bool, completion: @escaping completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}

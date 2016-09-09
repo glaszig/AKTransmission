@@ -27,7 +27,11 @@ class ViewController: UIViewController {
         tableView.dataSource = datasource
 
         // schedule polling
-        sessionTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(ViewController.pollSession), userInfo: nil, repeats: true)
+        sessionTimer = Timer.scheduledTimer(timeInterval: 5,
+                                            target: self,
+                                            selector: #selector(ViewController.pollSession),
+                                            userInfo: nil,
+                                            repeats: true)
         sessionTimer.fireDate = Date.distantFuture
     }
 
