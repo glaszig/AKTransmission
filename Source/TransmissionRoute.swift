@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 
 enum TransmissionRoute: URLRequestConvertible {
-
 	case magnetLink(String)
 	case sessionGet
 	case sessionSet([String: Any])
@@ -87,7 +86,7 @@ enum TransmissionRoute: URLRequestConvertible {
 		}
 	}
 
-	var urlRequest: URLRequest {
+    public func asURLRequest() throws -> URLRequest {
 		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
 		request.httpMethod = HTTPMethod
         do {

@@ -34,7 +34,7 @@ open class Transmission {
 	}
 
 	fileprivate func request(_ route: TransmissionRoute) -> URLRequest {
-		var request = route.urlRequest
+		var request = route.urlRequest!
 		var comps = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)!
 		comps.host = host
 		comps.port = Int(port)
