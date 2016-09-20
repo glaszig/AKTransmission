@@ -86,7 +86,7 @@ enum TransmissionRoute: URLRequestConvertible {
 		}
 	}
 
-    public func asURLRequest() throws -> URLRequest {
+    var urlRequest: URLRequest {
 		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
 		request.httpMethod = HTTPMethod
         do {
