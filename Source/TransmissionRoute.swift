@@ -10,6 +10,10 @@ import Foundation
 import Alamofire
 
 enum TransmissionRoute: URLRequestConvertible {
+    public func asURLRequest() throws -> URLRequest {
+        return urlRequest
+    }
+
 	case magnetLink(String)
 	case sessionGet
 	case sessionSet([String: Any])
