@@ -41,7 +41,7 @@ open class Transmission {
 		request.url = comps.url!
 		request.setValue(sessionId, forHTTPHeaderField: sessionHeader)
         request.timeoutInterval = timeout
-		return request as URLRequest
+		return request
 	}
 
 	private enum ResponseStatus {
@@ -61,6 +61,8 @@ open class Transmission {
             result == "success" {
 			return .success(args)
 		} else {
+            print("ERROR")
+            print(response.result.error)
 			return ResponseStatus.error(response.result.error)
 		}
 	}
@@ -68,7 +70,7 @@ open class Transmission {
 	open func loadMagnetLink(_ magnet: String, success: @escaping ((_ success: Bool, _ error: Error?) -> Void)) -> Request {
 		let route = TransmissionRoute.magnetLink(magnet)
 
-		return Alamofire.request(request(route))
+        return Alamofire.request(request(route), method: .post)
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
@@ -86,7 +88,7 @@ open class Transmission {
 	}
 
 	open func sessionGet(_ completion: @escaping (TransmissionSession?, Error?) -> Void) -> Request {
-		return Alamofire.request(request(TransmissionRoute.sessionGet))
+		return Alamofire.request(request(TransmissionRoute.sessionGet), method: .post)
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
@@ -104,7 +106,7 @@ open class Transmission {
 	}
 
 	open func sessionSet(_ arguments: [String: Any], completion: @escaping completionHandler) -> Request {
-		return Alamofire.request(request(TransmissionRoute.sessionSet(arguments)))
+		return Alamofire.request(request(TransmissionRoute.sessionSet(arguments)), method: .post)
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
@@ -125,7 +127,7 @@ open class Transmission {
 		let ids = torrents.flatMap {
 			$0.id
 		}
-		return Alamofire.request(request(TransmissionRoute.torrentStop(ids)))
+		return Alamofire.request(request(TransmissionRoute.torrentStop(ids)), method: .post)
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
@@ -146,7 +148,7 @@ open class Transmission {
 		let ids = torrents.flatMap {
 			$0.id
 		}
-		return Alamofire.request(request(TransmissionRoute.torrentStart(ids)))
+		return Alamofire.request(request(TransmissionRoute.torrentStart(ids)), method: .post)
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
@@ -167,7 +169,7 @@ open class Transmission {
 		let ids = torrents.flatMap {
 			$0.id
 		}
-		return Alamofire.request(request(TransmissionRoute.torrentRemove(ids: ids, trashData: trashData)))
+		return Alamofire.request(request(TransmissionRoute.torrentRemove(ids: ids, trashData: trashData)), method: .post)
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
 				guard let handled = self?.handleResponse(response) else {
@@ -185,7 +187,7 @@ open class Transmission {
 	}
 
 	open func torrentGet(_ completion: @escaping ([TransmissionTorrent]?, Error?) -> Void) -> Request {
-		return Alamofire.request(request(TransmissionRoute.torrentGet))
+		return Alamofire.request(request(TransmissionRoute.torrentGet), method: .post)
 			.authenticate(user: username, password: password)
 			.responseJSON { [weak self] response in
                 guard let handled = self?.handleResponse(response) else {

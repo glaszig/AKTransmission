@@ -19,10 +19,6 @@ enum TransmissionRoute: URLRequestConvertible {
 	case torrentStart([Int])
 	case torrentRemove(ids: [Int], trashData: Bool) // from list
 
-	var HTTPMethod: String {
-		return "POST"
-	}
-
 	var params: [String: Any] {
 
 		switch self {
@@ -87,8 +83,7 @@ enum TransmissionRoute: URLRequestConvertible {
 	}
 
     var urlRequest: URLRequest {
-		var request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
-		request.httpMethod = HTTPMethod
+		let request = URLRequest(url: URL(string: "http://dummyhost.com/transmission/rpc")!)
         do {
             return try JSONEncoding.default.encode(request, with: params)
         } catch {
