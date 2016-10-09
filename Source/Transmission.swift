@@ -1,4 +1,3 @@
-
 //
 //  Transmission.swift
 //
@@ -68,7 +67,8 @@ open class Transmission {
 		}
 	}
 
-	open func loadMagnetLink(_ magnet: String, success: @escaping ((_ success: Bool, _ error: Error?) -> Void)) -> Request {
+	open func loadMagnetLink(_ magnet: String,
+	                         success: @escaping ((_ success: Bool, _ error: Error?) -> Void)) -> Request {
 		let route = TransmissionRoute.magnetLink(magnet)
 
         return Alamofire.request(request(route))
@@ -124,7 +124,8 @@ open class Transmission {
 		}
 	}
 
-	open func pauseTorrent(_ torrents: [TransmissionTorrent], completion: @escaping completionHandler) -> Request {
+	open func pauseTorrent(_ torrents: [TransmissionTorrent],
+	                       completion: @escaping completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}
@@ -166,7 +167,9 @@ open class Transmission {
 		}
 	}
 
-	open func removeTorrent(_ torrents: [TransmissionTorrent], trashData: Bool, completion: @escaping completionHandler) -> Request {
+	open func removeTorrent(_ torrents: [TransmissionTorrent],
+	                        trashData: Bool,
+	                        completion: @escaping completionHandler) -> Request {
 		let ids = torrents.flatMap {
 			$0.id
 		}

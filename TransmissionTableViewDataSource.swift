@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 
-
 public class TransmissionTableViewDataSource: NSObject {
 
     public var pollInterval: TimeInterval = 2
@@ -142,7 +141,8 @@ extension TransmissionTableViewDataSource: UITableViewDataSource {
         return torrents.count
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView,
+                          cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         theTableview = tableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TransmissionTableViewCell else {
             fatalError("Need to implement TransmissionTableViewCell")

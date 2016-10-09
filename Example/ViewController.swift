@@ -13,7 +13,10 @@ class ViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var slowModeButton: UIBarButtonItem?
 
-    let client: Transmission = Transmission(host: "localhost", username: "admin", password: "admin", port: 9091)
+    let client: Transmission = Transmission(host: "localhost",
+                                            username: "admin",
+                                            password: "admin",
+                                            port: 9091)
 	var session: TransmissionSession?
 	var sessionTimer: Timer!
 
@@ -53,7 +56,7 @@ class ViewController: UIViewController {
 		let _ = client.sessionGet { [weak self] result, error in
 			if let session = result {
 				self?.session = session
-                self?.slowModeButton?.tintColor = session.altSpeedEnabled ? UIColor.red : UIColor.blue
+                self?.slowModeButton?.tintColor = session.altSpeedEnabled ? .red : .blue
 			}
 		}
 	}
@@ -73,7 +76,8 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView,
+                   editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         guard let datasource = (tableView.dataSource as? TransmissionTableViewDataSource),
             let torrent = datasource.torrent(at: indexPath) else {
             return nil
