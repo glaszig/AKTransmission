@@ -110,7 +110,8 @@ public class TransmissionTableViewDataSource: NSObject {
                 ss.theTableview.indexPathsForVisibleRows?.filter {
                     indexPaths.contains($0)
                 }.forEach {
-                    (ss.theTableview.cellForRow(at: $0) as? TransmissionTableViewCell)?.torrent = torrents[$0.row]
+                    (ss.theTableview.cellForRow(at: $0) as? TransmissionTableViewCell)?
+                        .torrent = torrents[$0.row]
                 }
             }
             // Delete rows
@@ -118,7 +119,8 @@ public class TransmissionTableViewDataSource: NSObject {
                 deletedIndexes.forEach {
                     ss.torrents.remove(at: $0)
                 }
-                ss.theTableview.deleteRows(at: deletedIndexes.flatMap({IndexPath(row: $0, section: 0)}), with: .none)
+                ss.theTableview.deleteRows(at: deletedIndexes.flatMap({IndexPath(row: $0, section: 0)}),
+                                           with: .none)
             }
 //            print("DEL : \(deletedIndexes.count)")
 //            print("INS : \(countInsert)")
@@ -144,7 +146,8 @@ extension TransmissionTableViewDataSource: UITableViewDataSource {
     public func tableView(_ tableView: UITableView,
                           cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         theTableview = tableView
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TransmissionTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,
+                                                       for: indexPath) as? TransmissionTableViewCell else {
             fatalError("Need to implement TransmissionTableViewCell")
         }
         cell.torrent = torrents[(indexPath as NSIndexPath).row]
