@@ -50,7 +50,7 @@ open class Transmission {
 		case error(Error?)
 	}
 
-	fileprivate func handleResponse(_ response: DataResponse<Any>) -> ResponseStatus {
+	private func handleResponse(_ response: DataResponse<Any>) -> ResponseStatus {
 		if let sid = response.response?.allHeaderFields[self.sessionHeader] as? String,
             response.response?.statusCode == 409 {
 			self.sessionId = sid
@@ -62,7 +62,7 @@ open class Transmission {
 			return .success(args)
 		} else {
             print("ERROR")
-            print(response.result.error)
+            dump(response.result)
 			return ResponseStatus.error(response.result.error)
 		}
 	}

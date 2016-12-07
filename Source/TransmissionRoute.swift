@@ -28,7 +28,7 @@ enum TransmissionRoute: URLRequestConvertible {
 		switch self {
 		case .sessionGet:
 			return [
-				"method": "session-get",
+				"method": "session-get"
 			]
 
 		case .sessionSet(let arguments):
@@ -39,7 +39,7 @@ enum TransmissionRoute: URLRequestConvertible {
 
 		case .sessionStats:
 			return [
-				"method": "session-stats",
+				"method": "session-stats"
 			]
 
 		case .torrentStart(let ids):
