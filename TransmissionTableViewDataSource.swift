@@ -29,7 +29,7 @@ public class TransmissionTableViewDataSource: NSObject {
         }
     }
 
-    init(client: Transmission) {
+    public init(client: Transmission) {
         self.client = client
         super.init()
 

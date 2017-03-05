@@ -21,10 +21,6 @@ open class Transmission {
 
 	public typealias completionHandler = (Any?, Error?) -> Void
 
-    open lazy var tableviewDataSource: TransmissionTableViewDataSource = {
-        return TransmissionTableViewDataSource(client: self)
-    }()
-
 	public init(host: String, username: String, password: String, port: UInt! = 9091) {
 		self.username = username
 		self.password = password

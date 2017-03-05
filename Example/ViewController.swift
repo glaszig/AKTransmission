@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
-        let datasource = client.tableviewDataSource
+        let datasource = TransmissionTableViewDataSource(client: client)
         datasource.cellIdentifier = "aCell"
         datasource.pollInterval = 5
         tableView.dataSource = datasource
