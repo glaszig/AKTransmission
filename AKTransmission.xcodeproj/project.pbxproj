@@ -25,6 +25,12 @@
 		177967241D7425EB0011E00E /* TransmissionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF41D47524900EF2FC7 /* TransmissionSession.swift */; };
 		17F6A2811D77267B0003643C /* TransmissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */; };
 		17F6A2821D77267B0003643C /* TransmissionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */; };
+		5BDC2D8B1E6CD50E00672487 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174E50261D4752EA00EF2FC7 /* Alamofire.framework */; };
+		5BDC2D8E1E6CD59D00672487 /* Transmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF21D47524900EF2FC7 /* Transmission.swift */; };
+		5BDC2D901E6CD5A300672487 /* TransmissionRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF31D47524900EF2FC7 /* TransmissionRoute.swift */; };
+		5BDC2D911E6CD5A700672487 /* TransmissionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF41D47524900EF2FC7 /* TransmissionSession.swift */; };
+		5BDC2D921E6CD5AB00672487 /* TransmissionTorrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF51D47524900EF2FC7 /* TransmissionTorrent.swift */; };
+		5BDC2D941E6CD5D100672487 /* AKTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 1714EF6C1D47575200E1D056 /* AKTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -102,6 +108,13 @@
 			remoteGlobalIDString = 4CF626EE1BA7CB3E0011A099;
 			remoteInfo = "Alamofire tvOS";
 		};
+		5BDC2D8C1E6CD58500672487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 174E50161D4752EA00EF2FC7 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DD67C0A1A5C55C900ED2280;
+			remoteInfo = "Alamofire OSX";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -134,6 +147,7 @@
 		174E50161D4752EA00EF2FC7 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		174E503A1D47554500EF2FC7 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-tvOS.plist"; path = "../Source/Info-tvOS.plist"; sourceTree = "<group>"; };
 		17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionTableViewCell.swift; sourceTree = "<group>"; };
+		5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AKTransmission.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Example iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +170,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1714EF731D47591000E1D056 /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BDC2D421E6C6A7B00672487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BDC2D8B1E6CD50E00672487 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +229,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+			isa = PBXGroup;
+			children = (
+			);
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +252,7 @@
 				607FACD01AFB9204008FA782 /* Example iOS.app */,
 				174E4FD41D47523800EF2FC7 /* AKTransmission.framework */,
 				174E4FFF1D4752A600EF2FC7 /* AKTransmission.framework */,
+				5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,6 +299,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BDC2D431E6C6A7B00672487 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BDC2D941E6CD5D100672487 /* AKTransmission.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -312,6 +348,25 @@
 			productReference = 174E4FFF1D4752A600EF2FC7 /* AKTransmission.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		5BDC2D451E6C6A7B00672487 /* AKTransmission macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5BDC2D611E6C6A7B00672487 /* Build configuration list for PBXNativeTarget "AKTransmission macOS" */;
+			buildPhases = (
+				5BDC2D411E6C6A7B00672487 /* Sources */,
+				5BDC2D421E6C6A7B00672487 /* Frameworks */,
+				5BDC2D431E6C6A7B00672487 /* Headers */,
+				5BDC2D441E6C6A7B00672487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5BDC2D8D1E6CD58500672487 /* PBXTargetDependency */,
+			);
+			name = "AKTransmission macOS";
+			productName = "AKTransmission macOS";
+			productReference = 5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		607FACCF1AFB9204008FA782 /* Example iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Example iOS" */;
@@ -337,7 +392,7 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -349,6 +404,10 @@
 					174E4FFE1D4752A600EF2FC7 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeamName = "Florian Morello (Personal Team)";
+						ProvisioningStyle = Automatic;
+					};
+					5BDC2D451E6C6A7B00672487 = {
+						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 					};
 					607FACCF1AFB9204008FA782 = {
@@ -379,6 +438,7 @@
 				607FACCF1AFB9204008FA782 /* Example iOS */,
 				174E4FD31D47523800EF2FC7 /* AKTransmission iOS */,
 				174E4FFE1D4752A600EF2FC7 /* AKTransmission tvOS */,
+				5BDC2D451E6C6A7B00672487 /* AKTransmission macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -450,6 +510,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BDC2D441E6C6A7B00672487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -488,6 +555,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BDC2D411E6C6A7B00672487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BDC2D8E1E6CD59D00672487 /* Transmission.swift in Sources */,
+				5BDC2D901E6CD5A300672487 /* TransmissionRoute.swift in Sources */,
+				5BDC2D911E6CD5A700672487 /* TransmissionSession.swift in Sources */,
+				5BDC2D921E6CD5AB00672487 /* TransmissionTorrent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -514,6 +592,11 @@
 			isa = PBXTargetDependency;
 			name = "Alamofire tvOS";
 			targetProxy = 174E50371D47532900EF2FC7 /* PBXContainerItemProxy */;
+		};
+		5BDC2D8D1E6CD58500672487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire OSX";
+			targetProxy = 5BDC2D8C1E6CD58500672487 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -659,6 +742,73 @@
 			};
 			name = Release;
 		};
+		5BDC2D571E6C6A7B00672487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arsonik.AKTransmission-macOS";
+				PRODUCT_NAME = AKTransmission;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5BDC2D581E6C6A7B00672487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arsonik.AKTransmission-macOS";
+				PRODUCT_NAME = AKTransmission;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -697,6 +847,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -735,6 +886,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -787,6 +939,15 @@
 			buildConfigurations = (
 				174E50111D4752A600EF2FC7 /* Debug */,
 				174E50121D4752A600EF2FC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5BDC2D611E6C6A7B00672487 /* Build configuration list for PBXNativeTarget "AKTransmission macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BDC2D571E6C6A7B00672487 /* Debug */,
+				5BDC2D581E6C6A7B00672487 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
