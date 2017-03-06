@@ -31,6 +31,12 @@
 		5BDC2D911E6CD5A700672487 /* TransmissionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF41D47524900EF2FC7 /* TransmissionSession.swift */; };
 		5BDC2D921E6CD5AB00672487 /* TransmissionTorrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E4FF51D47524900EF2FC7 /* TransmissionTorrent.swift */; };
 		5BDC2D941E6CD5D100672487 /* AKTransmission.h in Headers */ = {isa = PBXBuildFile; fileRef = 1714EF6C1D47575200E1D056 /* AKTransmission.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5BDC2DBA1E6D1AF100672487 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC2DB91E6D1AF100672487 /* AppDelegate.swift */; };
+		5BDC2DBC1E6D1AF100672487 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC2DBB1E6D1AF100672487 /* ViewController.swift */; };
+		5BDC2DBE1E6D1AF100672487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDC2DBD1E6D1AF100672487 /* Assets.xcassets */; };
+		5BDC2DC11E6D1AF100672487 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BDC2DBF1E6D1AF100672487 /* Main.storyboard */; };
+		5BDC2DDB1E6DE85E00672487 /* AKTransmission.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */; };
+		5BDC2DDC1E6DE85E00672487 /* AKTransmission.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -115,6 +121,13 @@
 			remoteGlobalIDString = 4DD67C0A1A5C55C900ED2280;
 			remoteInfo = "Alamofire OSX";
 		};
+		5BDC2DDD1E6DE85E00672487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BDC2D451E6C6A7B00672487;
+			remoteInfo = "AKTransmission macOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,6 +138,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				174E4FEB1D47523800EF2FC7 /* AKTransmission.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BDC2DDF1E6DE85E00672487 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5BDC2DDC1E6DE85E00672487 /* AKTransmission.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +172,12 @@
 		174E503A1D47554500EF2FC7 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-tvOS.plist"; path = "../Source/Info-tvOS.plist"; sourceTree = "<group>"; };
 		17F6A2801D77267B0003643C /* TransmissionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmissionTableViewCell.swift; sourceTree = "<group>"; };
 		5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AKTransmission.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BDC2DB71E6D1AF100672487 /* Example macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BDC2DB91E6D1AF100672487 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5BDC2DBB1E6D1AF100672487 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5BDC2DBD1E6D1AF100672487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5BDC2DC01E6D1AF100672487 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5BDC2DC21E6D1AF100672487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Example iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +208,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BDC2D8B1E6CD50E00672487 /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5BDC2DB41E6D1AF100672487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BDC2DDB1E6DE85E00672487 /* AKTransmission.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,9 +267,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5BDC2DB81E6D1AF100672487 /* Example macOS */ = {
 			isa = PBXGroup;
 			children = (
+				5BDC2DB91E6D1AF100672487 /* AppDelegate.swift */,
+				5BDC2DBB1E6D1AF100672487 /* ViewController.swift */,
+				5BDC2DBD1E6D1AF100672487 /* Assets.xcassets */,
+				5BDC2DBF1E6D1AF100672487 /* Main.storyboard */,
+				5BDC2DC21E6D1AF100672487 /* Info.plist */,
 			);
+			path = "Example macOS";
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -239,6 +284,7 @@
 			children = (
 				17240CFF1D815506007ECB29 /* Cartfile */,
 				607FACD21AFB9204008FA782 /* Example */,
+				5BDC2DB81E6D1AF100672487 /* Example macOS */,
 				174E4FCE1D4751E900EF2FC7 /* Source */,
 				607FACD11AFB9204008FA782 /* Products */,
 				1714EF6F1D47590700E1D056 /* Frameworks */,
@@ -253,6 +299,7 @@
 				174E4FD41D47523800EF2FC7 /* AKTransmission.framework */,
 				174E4FFF1D4752A600EF2FC7 /* AKTransmission.framework */,
 				5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */,
+				5BDC2DB71E6D1AF100672487 /* Example macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -367,6 +414,25 @@
 			productReference = 5BDC2D461E6C6A7B00672487 /* AKTransmission.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		5BDC2DB61E6D1AF100672487 /* Example macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5BDC2DCA1E6D1AF100672487 /* Build configuration list for PBXNativeTarget "Example macOS" */;
+			buildPhases = (
+				5BDC2DB31E6D1AF100672487 /* Sources */,
+				5BDC2DB41E6D1AF100672487 /* Frameworks */,
+				5BDC2DB51E6D1AF100672487 /* Resources */,
+				5BDC2DDF1E6DE85E00672487 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5BDC2DDE1E6DE85E00672487 /* PBXTargetDependency */,
+			);
+			name = "Example macOS";
+			productName = "Example macOS";
+			productReference = 5BDC2DB71E6D1AF100672487 /* Example macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		607FACCF1AFB9204008FA782 /* Example iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Example iOS" */;
@@ -410,6 +476,10 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 					};
+					5BDC2DB61E6D1AF100672487 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0800;
@@ -439,6 +509,7 @@
 				174E4FD31D47523800EF2FC7 /* AKTransmission iOS */,
 				174E4FFE1D4752A600EF2FC7 /* AKTransmission tvOS */,
 				5BDC2D451E6C6A7B00672487 /* AKTransmission macOS */,
+				5BDC2DB61E6D1AF100672487 /* Example macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -517,6 +588,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BDC2DB51E6D1AF100672487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BDC2DBE1E6D1AF100672487 /* Assets.xcassets in Resources */,
+				5BDC2DC11E6D1AF100672487 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -566,6 +646,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5BDC2DB31E6D1AF100672487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BDC2DBC1E6D1AF100672487 /* ViewController.swift in Sources */,
+				5BDC2DBA1E6D1AF100672487 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -598,9 +687,22 @@
 			name = "Alamofire OSX";
 			targetProxy = 5BDC2D8C1E6CD58500672487 /* PBXContainerItemProxy */;
 		};
+		5BDC2DDE1E6DE85E00672487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5BDC2D451E6C6A7B00672487 /* AKTransmission macOS */;
+			targetProxy = 5BDC2DDD1E6DE85E00672487 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5BDC2DBF1E6D1AF100672487 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BDC2DC01E6D1AF100672487 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -749,7 +851,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -783,7 +885,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -806,6 +908,49 @@
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5BDC2DC31E6D1AF100672487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = "Example macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arsonik.Example-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		5BDC2DC41E6D1AF100672487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Example macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arsonik.Example-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -951,6 +1096,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		5BDC2DCA1E6D1AF100672487 /* Build configuration list for PBXNativeTarget "Example macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BDC2DC31E6D1AF100672487 /* Debug */,
+				5BDC2DC41E6D1AF100672487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "AKTransmission" */ = {
 			isa = XCConfigurationList;
